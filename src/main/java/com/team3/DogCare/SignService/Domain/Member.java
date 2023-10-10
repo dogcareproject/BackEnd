@@ -34,7 +34,10 @@ public class Member {
     private String email;
 
     @Column @Nullable
-    private LocalDateTime bantime;
+    private LocalDateTime ban;
+
+    @Column
+    private int Doctor_check;
 
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

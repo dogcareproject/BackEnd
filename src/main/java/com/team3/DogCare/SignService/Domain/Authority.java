@@ -34,3 +34,4 @@ public class Authority {
     public void setMember(Member member) {
         this.member = member;
     }
+}
