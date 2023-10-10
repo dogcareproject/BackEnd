@@ -37,7 +37,7 @@ public class SignResponse {
         this.name = member.getName();
         this.Email = member.getEmail();
         this.Doctor_check = member.getDoctor_check();
-        this.ban = member.getBantime();
+        this.ban = member.getBan();
         this.roles = getRoles();
     }
 }

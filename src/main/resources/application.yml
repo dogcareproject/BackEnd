@@ -10,7 +10,7 @@ spring:
     #password: dbpass231
 
   jpa:
-    show-sql: true\
+    show-sql: true
     properties:
       hibernate:
         default_batch_fetch_size: 1000
@@ -30,3 +30,7 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+
+jwt:
+  secret:
+    key: z$C&F)J@NcRfUjXnZr4u7x!A%D*G-KaP
