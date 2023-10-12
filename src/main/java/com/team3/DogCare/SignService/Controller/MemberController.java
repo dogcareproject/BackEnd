@@ -1,7 +1,10 @@
 package com.team3.DogCare.SignService.Controller;
 
+import com.team3.DogCare.SignService.Domain.Member;
+import com.team3.DogCare.SignService.Domain.dto.BanDto;
 import com.team3.DogCare.SignService.Domain.dto.SignRequest;
 import com.team3.DogCare.SignService.Domain.dto.SignResponse;
+import com.team3.DogCare.SignService.Domain.dto.UserRequest;
 import com.team3.DogCare.SignService.Service.EmailService;
 import com.team3.DogCare.SignService.Service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -46,4 +49,57 @@ public class MemberController {
     public ResponseEntity<Boolean> adminsignup(@RequestBody SignRequest request) throws Exception {
         return new ResponseEntity<>(memberService.adminRegister(request), HttpStatus.OK);
     }
+    @PutMapping("/User/infoChange")
+    public ResponseEntity<?> info_change(@RequestBody UserRequest request){
+        try{
+            return new ResponseEntity<>(memberService.infoChange(request), HttpStatus.OK);
+        }catch (SignException e) {
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
+
+    }
+    @PostMapping("/User/FindAccount")
+    public ResponseEntity<?> findid(@RequestBody UserRequest request){
+        try{
+            return new ResponseEntity<>(memberService.FindAccount(request), HttpStatus.OK);
+        }catch (SignException e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
+
+    }
+    @PostMapping("/User/FindPWD")
+    public ResponseEntity<?> Findpwd(@RequestBody UserRequest request){
+        try{
+            return new ResponseEntity<>(emailService.sendPwdEmail(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
+    }
+    @PostMapping("/User/withdrawal")
+    public ResponseEntity<?> deleteMember(@RequestBody UserRequest request){
+        try{
+            return new ResponseEntity<>(memberService.withdrawal(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
+
+    }
+    @PostMapping("/admin/banMember")
+    public ResponseEntity<?> memberban(@RequestBody BanDto request){
+        try{
+            return new ResponseEntity<>(memberService.accountBan(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }
+    }
+    @GetMapping("/getMemberList")
+    public ResponseEntity<List<Member>> getMembers() {
+        return new ResponseEntity<>(memberService.getMemberList(), HttpStatus.OK);
+    }
+
 }

@@ -4,8 +4,10 @@ package com.team3.DogCare.SignService.Service;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Authority;
 import com.team3.DogCare.SignService.Domain.Member;
+import com.team3.DogCare.SignService.Domain.dto.BanDto;
 import com.team3.DogCare.SignService.Domain.dto.SignRequest;
 import com.team3.DogCare.SignService.Domain.dto.SignResponse;
+import com.team3.DogCare.SignService.Domain.dto.UserRequest;
 import com.team3.DogCare.SignService.Repository.MemberRepository;
 import com.team3.DogCare.SignService.Security.JwtProvider;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @Transactional
@@ -90,9 +93,47 @@ public class MemberService {
             throw new Exception("잘못된 요청입니다.");
         }
         return true;
+
     }
+    public boolean infoChange(UserRequest request){
+        Member member = memberRepository.findById(request.getId()).orElseThrow(() ->
+                new SignException("해당 계정을 찾을 수 없습니다."));
+        member.setPassword(passwordEncoder.encode(request.getPassword()));
+        member.setEmail(request.getEmail());
 
+        memberRepository.save(member);
 
+        return true;
+    }
+    public String FindAccount(UserRequest request){
+        Member member = memberRepository.findByEmail(request.getEmail()).orElseThrow(() ->
+                new SignException("이메일을 찾을수 없습니다"));
+
+        return member.getAccount();
+    }
+    public Boolean withdrawal(UserRequest request) throws Exception {
+        Member member = memberRepository.findByAccount(request.getAccount()).orElseThrow(() ->
+                new Exception("계정을 찾을 수 없습니다."));
+        if (!passwordEncoder.matches(request.getPassword(), member.getPassword())){
+            return false;
+        }
+        memberRepository.deleteById(member.getId());
+
+        return true;
+    }
+    public Boolean accountBan(BanDto request) throws Exception {
+        Member member = memberRepository.findById(request.getId()).orElseThrow(() ->
+                new Exception("계정을 찾을 수 없습니다."));
+
+        LocalDateTime banned = LocalDateTime.now().plusDays(request.getBantime());
+        member.setBan(banned);
+        memberRepository.save(member);
+        return true;
+    }
+    public List<Member> getMemberList() {
+
+        return memberRepository.findAll();
+    }
 
 
 
