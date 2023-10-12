@@ -23,7 +23,7 @@ public class SignResponse {
 
     private String Email;
 
-    private int Doctor_check;
+    private String Doctor_check;
 
     private List<Authority> roles = new ArrayList<>();
 

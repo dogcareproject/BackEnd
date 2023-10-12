@@ -72,6 +72,25 @@ public class MemberService {
         }
         return true;
     }
+    public boolean adminRegister(SignRequest request) throws Exception {
+        try {
+            Member member = Member.builder()
+                    .id(request.getId())
+                    .account(request.getAccount())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .name(request.getName())
+                    .email(request.getEmail())
+                    .build();
+
+            member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_ADMIN").build()));
+
+            memberRepository.save(member);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new Exception("잘못된 요청입니다.");
+        }
+        return true;
+    }
 
 
 

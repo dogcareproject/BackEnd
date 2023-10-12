@@ -41,4 +41,9 @@ public class MemberController {
     public ResponseEntity<Boolean> signup(@RequestBody SignRequest request) throws Exception {
         return new ResponseEntity<>(memberService.register(request), HttpStatus.OK);
     }
+
+    @PostMapping(value = "/adminRegister")
+    public ResponseEntity<Boolean> adminsignup(@RequestBody SignRequest request) throws Exception {
+        return new ResponseEntity<>(memberService.adminRegister(request), HttpStatus.OK);
+    }
 }
