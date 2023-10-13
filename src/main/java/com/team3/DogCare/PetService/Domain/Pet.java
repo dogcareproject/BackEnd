@@ -3,6 +3,7 @@ package com.team3.DogCare.PetService.Domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.team3.DogCare.SignService.Domain.Member;
 
 @Entity
 @Getter
@@ -18,10 +19,10 @@ public class Pet {
     @Column(name = "petId")
     private Long id;
 
-    @Column
-    @JoinColumn(name = "memberId")
+
     @ManyToOne
-    private Long owner_id;
+    @JoinColumn(name = "memberId")
+    private Member ownerId;
 
     @Column
     private String name;
