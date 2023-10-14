@@ -59,7 +59,8 @@ public class MemberController {
         }catch (SignException e) {
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }
+        }//받는 인자 : email, password, id (id로 계정 확인 후, 받은 email과 password로 계정 정보 변경)
+        //기본적으로 회원정보 변경시 로그인한 유저의 정보가 미리 기입되어 있게 할것.
 
     }
     @PostMapping("/Find/Account")
@@ -69,7 +70,7 @@ public class MemberController {
         }catch (SignException e){
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }
+        }//받는 인자 : email (이메일로 계정 리턴)
 
     }
     @PostMapping("/Find/Pwd")
@@ -79,7 +80,8 @@ public class MemberController {
         }catch (Exception e){
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }
+        }//받는 인자 : account, email (이메일과 계정으로 id를 찾아서 해당 계정의 이메일로 임시 비밀번호로 변경후
+        //임시 비밀번호 보냄.
     }
     @PostMapping("/user/withdrawal")
     public ResponseEntity<?> deleteMember(@RequestBody UserRequest request){
@@ -88,7 +90,7 @@ public class MemberController {
         }catch (Exception e){
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }
+        }//받는 인자 : account , password (비밀번호 입력받아서 최종확인 후 계정삭제)
 
     }
     @PostMapping("/admin/banMember")
@@ -98,7 +100,7 @@ public class MemberController {
         }catch (Exception e){
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }
+        } //받는 인자 : id , bantime
     }
     @GetMapping("/getMemberList")
     public ResponseEntity<List<Member>> getMembers() {

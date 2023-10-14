@@ -21,22 +21,22 @@ public class Member {
     @Column(name = "memberId")
     private Long id;
 
-    @Column(unique = true)
+    @Column(nullable = false , unique = true)
     private String account;
 
-    @Column
+    @Column (nullable = false)
     private String password;
 
-    @Column
+    @Column (nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false , unique = true)
     private String email;
 
     @Column @Nullable
     private LocalDateTime ban;
 
-    @Column
+    @Column @Nullable
     private String Doctor_check;
 
 
