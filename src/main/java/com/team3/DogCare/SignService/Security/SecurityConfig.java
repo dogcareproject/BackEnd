@@ -61,9 +61,9 @@ public class SecurityConfig {
                 // 회원가입과 로그인은 모두 승인
                 .requestMatchers("/admin","/register", "/login","/Find/**","/adminRegister").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
-                .requestMatchers("/admin/**","/getMemberList").hasRole("ADMIN")
+                .requestMatchers("/admin/**","/getMemberList").hasAnyAuthority("ROLE_ADMIN","ADMIN")
                 // /user로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
-                .requestMatchers("/user/**", "/MyPage/**","/withdrawMember").hasRole("USER")
+                .requestMatchers("/user/**", "/MyPage/**","/withdrawMember").hasAnyAuthority("ROLE_USER","USER")
                 .anyRequest().denyAll()
                 .and()
                 // JWT 인증 필터 적용

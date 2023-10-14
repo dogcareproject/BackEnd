@@ -64,6 +64,7 @@ public class MemberService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .name(request.getName())
                     .email(request.getEmail())
+                    .Doctor_check(request.getDoctor_check())
                     .build();
 
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));

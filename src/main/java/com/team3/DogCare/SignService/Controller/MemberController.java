@@ -52,7 +52,7 @@ public class MemberController {
     public ResponseEntity<Boolean> adminsignup(@RequestBody SignRequest request) throws Exception {
         return new ResponseEntity<>(memberService.adminRegister(request), HttpStatus.OK);
     }
-    @PutMapping("/User/infoChange")
+    @PutMapping("/user/infoChange")
     public ResponseEntity<?> info_change(@RequestBody UserRequest request){
         try{
             return new ResponseEntity<>(memberService.infoChange(request), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class MemberController {
         }
 
     }
-    @PostMapping("/User/FindAccount")
+    @PostMapping("/Find/Account")
     public ResponseEntity<?> findid(@RequestBody UserRequest request){
         try{
             return new ResponseEntity<>(memberService.FindAccount(request), HttpStatus.OK);
@@ -72,7 +72,7 @@ public class MemberController {
         }
 
     }
-    @PostMapping("/User/FindPWD")
+    @PostMapping("/Find/Pwd")
     public ResponseEntity<?> Findpwd(@RequestBody UserRequest request){
         try{
             return new ResponseEntity<>(emailService.sendPwdEmail(request), HttpStatus.OK);
@@ -81,7 +81,7 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
         }
     }
-    @PostMapping("/User/withdrawal")
+    @PostMapping("/user/withdrawal")
     public ResponseEntity<?> deleteMember(@RequestBody UserRequest request){
         try{
             return new ResponseEntity<>(memberService.withdrawal(request), HttpStatus.OK);
