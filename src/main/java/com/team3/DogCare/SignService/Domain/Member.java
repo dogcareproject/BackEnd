@@ -37,7 +37,7 @@ public class Member {
     private LocalDateTime ban;
 
     @Column @Nullable
-    private String Doctor_check;
+    private String doctor_check;
 
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

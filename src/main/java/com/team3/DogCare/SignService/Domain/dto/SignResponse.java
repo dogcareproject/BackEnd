@@ -21,9 +21,9 @@ public class SignResponse {
 
     private String name;
 
-    private String Email;
+    private String email;
 
-    private String Doctor_check;
+    private String doctor_check;
 
     private List<Authority> roles = new ArrayList<>();
 
@@ -35,8 +35,8 @@ public class SignResponse {
         this.id = member.getId();
         this.account = member.getAccount();
         this.name = member.getName();
-        this.Email = member.getEmail();
-        this.Doctor_check = member.getDoctor_check();
+        this.email = member.getEmail();
+        this.doctor_check = member.getDoctor_check();
         this.ban = member.getBan();
         this.roles = getRoles();
     }

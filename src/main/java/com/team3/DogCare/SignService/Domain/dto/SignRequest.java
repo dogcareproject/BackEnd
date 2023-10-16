@@ -13,7 +13,7 @@ public class SignRequest {
 
     private String name;
 
-    private String Email;
+    private String email;
 
     private String Doctor_check;
 

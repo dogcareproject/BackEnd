@@ -50,8 +50,9 @@ public class MemberService {
                 .id(member.getId())
                 .account(member.getAccount())
                 .name(member.getName())
-                .Email(member.getEmail())
+                .email(member.getEmail())
                 .roles(member.getRoles())
+                .doctor_check(member.getDoctor_check())
                 .token(jwtProvider.createToken(member.getAccount(), member.getRoles()))
                 .build();
     }
@@ -64,7 +65,7 @@ public class MemberService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .name(request.getName())
                     .email(request.getEmail())
-                    .Doctor_check(request.getDoctor_check())
+                    .doctor_check(request.getDoctor_check())
                     .build();
 
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
@@ -101,6 +102,7 @@ public class MemberService {
                 new SignException("해당 계정을 찾을 수 없습니다."));
         member.setPassword(passwordEncoder.encode(request.getPassword()));
         member.setEmail(request.getEmail());
+        member.setName(request.getName());
 
         memberRepository.save(member);
 
