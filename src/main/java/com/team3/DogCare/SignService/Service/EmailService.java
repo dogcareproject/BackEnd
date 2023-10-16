@@ -53,7 +53,7 @@ public class EmailService {
         String tempPwd = tempPwd(request);
         EmailDto email = new EmailDto();
         email.setAddress(request.getEmail());
-        email.setTitle(request.getAccount()+"님의 BOOKMAKASE 임시비밀번호 안내입니다.");
+        email.setTitle(request.getAccount()+"님의 멍멍케어 임시비밀번호 안내입니다.");
         email.setMessage("임시 비밀번호는 "+ tempPwd +" 입니다.");
 
         SimpleMailMessage message = new SimpleMailMessage();
