@@ -22,7 +22,7 @@ public class Pet {
 
     @ManyToOne
     @JoinColumn(name = "memberId")
-    private Member ownerId;
+    private Long ownerId;
 
     @Column
     private String name;

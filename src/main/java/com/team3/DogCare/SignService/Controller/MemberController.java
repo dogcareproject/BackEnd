@@ -27,7 +27,6 @@ public class MemberController {
     @Autowired
     private final EmailService emailService;
 
-    @CrossOrigin("*")
     @PostMapping(value = "/login")
     public ResponseEntity<?> signin(@RequestBody SignRequest request) {
         try {
@@ -47,7 +46,6 @@ public class MemberController {
         return new ResponseEntity<>(memberService.register(request), HttpStatus.OK);
     }
 
-    @CrossOrigin("*")
     @PostMapping(value = "/adminRegister")
     public ResponseEntity<Boolean> adminsignup(@RequestBody SignRequest request) throws Exception {
         return new ResponseEntity<>(memberService.adminRegister(request), HttpStatus.OK);
