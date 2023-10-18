@@ -3,7 +3,9 @@ package com.team3.DogCare.PetService.Domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import com.team3.DogCare.SignService.Domain.Member;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -12,30 +14,27 @@ import com.team3.DogCare.SignService.Domain.Member;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Pet {
+public class Vaccine {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "petId")
-    private Long petId;
-
+    @Column
+    private Long vaccineId;
 
     @ManyToOne
     @JoinColumn(name = "memberId")
-    private Long ownerId;
+    private Long memberId;
 
     @Column
-    private String name;
+    private String petName;
 
     @Column
-    private String gender;
+    private String vaccineName;
 
     @Column
-    private String breed;
+    private LocalDate vaccineFrom;
 
     @Column
-    private String age;
-
-    @Column
-    private String weight;
+    private LocalDate vaccineTo;
 }

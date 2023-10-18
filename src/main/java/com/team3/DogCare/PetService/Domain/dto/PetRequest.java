@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class PetRequest {
 
-    private Long id;
+    private Long petId;
 
     private Long ownerId;
 

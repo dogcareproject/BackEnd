@@ -1,6 +1,8 @@
 package com.team3.DogCare.SignService.Service;
 
 
+import com.team3.DogCare.PetService.Repository.PetRepository;
+import com.team3.DogCare.PetService.Repository.VaccineRepository;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Authority;
 import com.team3.DogCare.SignService.Domain.Member;
@@ -28,6 +30,10 @@ import java.util.List;
 public class MemberService {
     @Autowired
     private final MemberRepository memberRepository;
+    @Autowired
+    private final PetRepository petRepository;
+    @Autowired
+    private final VaccineRepository vaccineRepository;
     @Autowired
     private final PasswordEncoder passwordEncoder;
     @Autowired
@@ -120,6 +126,8 @@ public class MemberService {
         if (!passwordEncoder.matches(request.getPassword(), member.getPassword())){
             return false;
         }
+        vaccineRepository.deleteAllByMemberId(request.getId());
+        petRepository.deleteAllByOwnerId(request.getId());
         memberRepository.deleteById(member.getId());
 
         return true;

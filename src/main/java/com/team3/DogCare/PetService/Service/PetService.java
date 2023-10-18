@@ -1,9 +1,12 @@
 package com.team3.DogCare.PetService.Service;
 
 import com.team3.DogCare.PetService.Domain.Pet;
+import com.team3.DogCare.PetService.Domain.Vaccine;
 import com.team3.DogCare.PetService.Domain.dto.FeedRequest;
 import com.team3.DogCare.PetService.Domain.dto.PetRequest;
+import com.team3.DogCare.PetService.Domain.dto.VaccineRequest;
 import com.team3.DogCare.PetService.Repository.PetRepository;
+import com.team3.DogCare.PetService.Repository.VaccineRepository;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Member;
 import com.team3.DogCare.SignService.Repository.MemberRepository;
@@ -25,10 +28,13 @@ public class PetService {
     @Autowired
     private final PetRepository petRepository;
 
+    @Autowired
+    private final VaccineRepository vaccineRepository;
+
     public static boolean register(PetRequest request) throws Exception{
         try{
             Pet pet = Pet.builder()
-                    .id(request.getId())
+                    .petId(request.getPetId())
                     .ownerId(request.getOwnerId())
                     .gender(request.getGender())
                     .breed(request.getBreed())
@@ -44,7 +50,7 @@ public class PetService {
     }
 
     public boolean infoChange(PetRequest request){
-        Pet pet = petRepository.findById(request.getId()).orElseThrow(() ->
+        Pet pet = petRepository.findById(request.getPetId()).orElseThrow(() ->
                 new SignException("해당 계정을 찾을 수 없습니다."));
             pet.setBreed(request.getBreed());
             pet.setAge(request.getAge());
@@ -57,9 +63,9 @@ public class PetService {
         return true;
     }
 
-    public void deletePet(PetRequest request) throws Exception {
+    public void deletePet(Long petId){
 
-        petRepository.deleteById(request.getId());
+        petRepository.deleteById(petId);
     }
 
     public List<Pet> getPetList(Long Ownerid){
@@ -76,6 +82,25 @@ public class PetService {
         Long DER = RER * request.getType();
         String feedback = DER + "칼로리 만큼을 " + times +"회에 나눠 급여하세요.";
         return feedback;
+    }
+
+    public VaccineRequest addVaccine(VaccineRequest request){
+
+        return VaccineRequest.builder()
+                .VaccineTo(request.getVaccineTo())
+                .VaccineFrom(request.getVaccineFrom())
+                .VaccineName(request.getVaccineName())
+                .memberId(request.getMemberId())
+                .vaccineId(request.getVaccineId())
+                .build();
+    }
+
+    public List<Vaccine> getVaccine(Long memberId){
+        return vaccineRepository.findAllByMemberId(memberId);
+
+    }
+    public void deleteVaccine(Long vaccineId){
+        vaccineRepository.deleteById(vaccineId);
     }
 
 
