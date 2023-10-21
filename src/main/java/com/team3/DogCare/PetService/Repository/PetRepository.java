@@ -13,10 +13,10 @@ import java.util.Optional;
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
-    Optional<Pet> findByOwnerId(String ownerId);
-    Optional<Pet> findByOwnerIdAndName(String ownerId, String name);
-    List<Pet> findAllByOwnerId(Long ownerId);
-    void deleteAllByOwnerId(Long ownerId);
+    Optional<Pet> findByMemberId(String ownerId);
+    Optional<Pet> findByMemberIdAndName(String ownerId, String name);
+    List<Pet> findAllByMemberId(Long ownerId);
+
 
 
 }

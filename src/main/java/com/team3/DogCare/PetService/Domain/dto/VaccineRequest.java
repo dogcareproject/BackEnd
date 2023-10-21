@@ -1,6 +1,7 @@
 package com.team3.DogCare.PetService.Domain.dto;
 
 
+import com.team3.DogCare.SignService.Domain.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,13 +15,13 @@ import java.time.LocalDateTime;
 public class VaccineRequest {
     private Long vaccineId;
 
-    private Long memberId;
+    private Long memberId; //member
 
-    private String VaccineName;
+    private String vaccineName;
 
-    private LocalDate VaccineFrom;
+    private LocalDate vaccineFrom;
 
-    private LocalDate VaccineTo;
+    private LocalDate vaccineTo;
 
     private String petName;
 }

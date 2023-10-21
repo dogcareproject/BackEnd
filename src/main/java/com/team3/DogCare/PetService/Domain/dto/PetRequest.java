@@ -11,7 +11,7 @@ public class PetRequest {
 
     private Long petId;
 
-    private Long ownerId;
+    private Long ownerId; //member
 
     private String name;
 

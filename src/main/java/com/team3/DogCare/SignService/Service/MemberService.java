@@ -3,6 +3,7 @@ package com.team3.DogCare.SignService.Service;
 
 import com.team3.DogCare.PetService.Repository.PetRepository;
 import com.team3.DogCare.PetService.Repository.VaccineRepository;
+import com.team3.DogCare.PetService.Service.PetService;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Authority;
 import com.team3.DogCare.SignService.Domain.Member;
@@ -38,6 +39,9 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     private final JwtProvider jwtProvider;
+
+    private final PetService petService;
+
 
     public SignResponse login(SignRequest request) {
         Member member = memberRepository.findByAccount(request.getAccount()).orElseThrow(() ->
@@ -126,8 +130,21 @@ public class MemberService {
         if (!passwordEncoder.matches(request.getPassword(), member.getPassword())){
             return false;
         }
-        vaccineRepository.deleteAllByMemberId(request.getId());
-        petRepository.deleteAllByOwnerId(request.getId());
+
+        Long memberId = request.getId();
+        petService.deleteVaccineByMember(memberId);
+        petService.deletePetByMember(memberId);
+        memberRepository.deleteById(member.getId());
+
+
+        return true;
+    }
+    public Boolean foredwithdrawal(BanDto request) throws Exception {
+        Member member = memberRepository.findById(request.getId()).orElseThrow(() ->
+                new Exception("계정을 찾을 수 없습니다."));
+        Long memberId = request.getId();
+        petService.deleteVaccineByMember(memberId);
+        petService.deletePetByMember(memberId);
         memberRepository.deleteById(member.getId());
 
         return true;

@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Inheritance
+@Inheritance(strategy = InheritanceType.JOINED)
 @Builder @AllArgsConstructor @NoArgsConstructor
 public class Member {
 

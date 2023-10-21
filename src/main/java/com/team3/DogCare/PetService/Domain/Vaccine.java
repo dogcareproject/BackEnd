@@ -1,6 +1,7 @@
 package com.team3.DogCare.PetService.Domain;
 
 
+import com.team3.DogCare.SignService.Domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,7 @@ public class Vaccine {
 
     @ManyToOne
     @JoinColumn(name = "memberId")
-    private Long memberId;
+    private Member member;
 
     @Column
     private String petName;

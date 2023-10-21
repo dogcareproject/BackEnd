@@ -25,7 +25,7 @@ import java.util.List;
 public class JwtProvider {
 
     @Value("${jwt.secret.key}")
-    private String salt;
+    private String key;
 
     private Key secretKey;
 
@@ -36,7 +36,7 @@ public class JwtProvider {
 
     @PostConstruct
     protected void init() {
-        secretKey = Keys.hmacShaKeyFor(salt.getBytes(StandardCharsets.UTF_8));
+        secretKey = Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
     }
 
 

@@ -88,7 +88,17 @@ public class MemberController {
         }catch (Exception e){
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }//받는 인자 : account , password (비밀번호 입력받아서 최종확인 후 계정삭제)
+        }//받는 인자 :id, account , password (비밀번호 입력받아서 최종확인 후 계정삭제)
+
+    }
+    @PostMapping("/admin/withdrawal")
+    public ResponseEntity<?> forced_deleteMember(@RequestBody BanDto request){
+        try{
+            return new ResponseEntity<>(memberService.foredwithdrawal(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        }//받는 인자 : id / id를 입력받아 계정 삭제
 
     }
     @PostMapping("/admin/banMember")

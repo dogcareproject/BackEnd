@@ -59,11 +59,11 @@ public class SecurityConfig {
                 // 조건별로 요청 허용/제한 설정
                 .authorizeHttpRequests()
                 // 회원가입과 로그인은 모두 승인
-                .requestMatchers("/admin","/register", "/login","/Find/**","/adminRegister").permitAll()
+                .requestMatchers("/register", "/login","/Find/**","/adminRegister").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .requestMatchers("/admin/**","/getMemberList").hasAnyAuthority("ROLE_ADMIN","ADMIN")
                 // /user로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
-                .requestMatchers("/user/**", "/MyPage/**","/withdrawMember").hasAnyAuthority("ROLE_USER","USER")
+                .requestMatchers("/user/**", "/MyPage/**","/user/pet/**").hasAnyAuthority("ROLE_USER","USER","ROLE_ADMIN","ADMIN")
                 .anyRequest().denyAll()
                 .and()
                 // JWT 인증 필터 적용
