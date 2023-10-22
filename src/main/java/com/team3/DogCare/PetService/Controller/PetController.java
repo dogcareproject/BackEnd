@@ -65,7 +65,7 @@ public class PetController {
     @PostMapping(value = "/addVaccine")
     public ResponseEntity<Boolean> addVaccine(@RequestBody VaccineRequest request) throws Exception{
         return new ResponseEntity<>(petService.addVaccine(request), HttpStatus.OK);
-    }//받는 인자 : petName, memberId, vaccineName, vaccineFrom, vaccineTo
+    }//받는 인자 : petName, petId, vaccineName, vaccineFrom, vaccineTo
 
     @GetMapping(value = "/getVaccines")
     public List<Vaccine> addVaccine(@RequestParam Long memberId) {

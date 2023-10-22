@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface VaccineRepository extends JpaRepository<Vaccine, Long> {
 
-    List<Vaccine> findAllByMemberId(Long memberId);
-
+    //List<Vaccine> findAllByMemberId(Long memberId);
+    List<Vaccine> findAllByPetPetId(Long petId);
+    void deleteByPetPetId(Long petId);
 }

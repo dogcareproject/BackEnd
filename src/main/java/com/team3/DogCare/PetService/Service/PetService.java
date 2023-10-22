@@ -99,16 +99,16 @@ public class PetService {
     }
 
     public Boolean addVaccine(VaccineRequest request)throws Exception{
-        Member member = memberRepository.findById(request.getMemberId()).orElseThrow(()->
-                new IllegalArgumentException("Invalid member id: " + request.getMemberId()));
+        Pet pet = petRepository.findById(request.getPetId()).orElseThrow(()->
+                new IllegalArgumentException("Invalid member id: " + request.getPetId()));
         try{
             Vaccine vaccine = Vaccine.builder()
                 .vaccineTo(request.getVaccineTo())
                 .vaccineFrom(request.getVaccineFrom())
                 .vaccineName(request.getVaccineName())
-                .member(member)
+                .pet(pet)
                 .vaccineId(request.getVaccineId())
-                .petName(request.getPetName())
+                .vaccineItem(request.getVaccineItem())
                 .build();
             vaccineRepository.save(vaccine);
         } catch (Exception e){
@@ -118,17 +118,28 @@ public class PetService {
         return true;
     }
 
-    public List<Vaccine> getVaccine(Long memberId){
-        return vaccineRepository.findAllByMemberId(memberId);
+    public List<Vaccine> getVaccine(Long petId){
+        return vaccineRepository.findAllByPetPetId(petId);
 
     }
     public void deleteVaccine(Long vaccineId){
         vaccineRepository.deleteById(vaccineId);
     }
-    public void deleteVaccineByMember(Long memberId) {
+
+    /*public void deleteVaccineByMember(Long memberId) {
         vaccineRepository.findAllByMemberId(memberId).forEach(v->{
             deleteVaccine(v.getVaccineId());
         });
+    }*/
+    /*public void deleteVaccineByPet(Long petId) {
+        vaccineRepository.findAllByPetPetId(petId).forEach(v->{
+            deleteVaccine(v.getVaccineId());
+        });
+    }*/
+    public void deleteVaccineByPet(List<Long> petIds) {
+        for (Long petId : petIds) {
+            vaccineRepository.deleteByPetPetId(petId);
+        }
     }
 
     public String appropriateWeight(WeightDto request){

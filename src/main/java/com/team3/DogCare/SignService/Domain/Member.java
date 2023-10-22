@@ -21,6 +21,7 @@ public class Member {
     @Column(name = "memberId")
     private Long id;
 
+
     @Column(nullable = false , unique = true)
     private String account;
 

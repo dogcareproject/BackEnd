@@ -2,6 +2,7 @@ package com.team3.DogCare.PetService.Domain;
 
 
 import com.team3.DogCare.SignService.Domain.Member;
+import com.team3.DogCare.PetService.Domain.Pet;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,12 +24,16 @@ public class Vaccine {
     @Column
     private Long vaccineId;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "memberId")
-    private Member member;
+    private Member member;*/
+
+    @ManyToOne
+    @JoinColumn(name = "petId")
+    private Pet pet;
 
     @Column
-    private String petName;
+    private String vaccineItem;
 
     @Column
     private String vaccineName;

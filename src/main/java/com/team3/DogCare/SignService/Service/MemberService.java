@@ -1,6 +1,7 @@
 package com.team3.DogCare.SignService.Service;
 
 
+import com.team3.DogCare.PetService.Domain.Pet;
 import com.team3.DogCare.PetService.Repository.PetRepository;
 import com.team3.DogCare.PetService.Repository.VaccineRepository;
 import com.team3.DogCare.PetService.Service.PetService;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -127,12 +129,17 @@ public class MemberService {
     public Boolean withdrawal(UserRequest request) throws Exception {
         Member member = memberRepository.findByAccount(request.getAccount()).orElseThrow(() ->
                 new Exception("계정을 찾을 수 없습니다."));
+        List<Pet> pet = petRepository.findAllByMemberId(request.getId());
         if (!passwordEncoder.matches(request.getPassword(), member.getPassword())){
             return false;
         }
 
         Long memberId = request.getId();
-        petService.deleteVaccineByMember(memberId);
+        List<Long> petId = pet.stream()
+                .map(Pet::getPetId) // 각 Pet 엔티티에서 petId를 추출
+                .collect(Collectors.toList());
+
+        petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
         memberRepository.deleteById(member.getId());
 
@@ -142,8 +149,13 @@ public class MemberService {
     public Boolean foredwithdrawal(BanDto request) throws Exception {
         Member member = memberRepository.findById(request.getId()).orElseThrow(() ->
                 new Exception("계정을 찾을 수 없습니다."));
+        List<Pet> pet = petRepository.findAllByMemberId(request.getId());
         Long memberId = request.getId();
-        petService.deleteVaccineByMember(memberId);
+        List<Long> petId = pet.stream()
+                .map(Pet::getPetId)
+                .collect(Collectors.toList());
+
+        petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
         memberRepository.deleteById(member.getId());
 
