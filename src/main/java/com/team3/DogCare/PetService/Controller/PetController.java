@@ -68,8 +68,8 @@ public class PetController {
     }//받는 인자 : petName, petId, vaccineName, vaccineFrom, vaccineTo
 
     @GetMapping(value = "/getVaccines")
-    public List<Vaccine> addVaccine(@RequestParam Long memberId) {
-        return petService.getVaccine(memberId);
+    public List<Vaccine> getVaccine(@RequestParam Long petId) {
+        return petService.getVaccine(petId);
     }//받는 인자 : memberId, 주소는 user/pet/vaccines?memberId=123 형식으로
 
     @DeleteMapping(value = "/deleteVaccine")
