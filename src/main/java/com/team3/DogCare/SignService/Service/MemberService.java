@@ -7,11 +7,10 @@ import com.team3.DogCare.PetService.Repository.VaccineRepository;
 import com.team3.DogCare.PetService.Service.PetService;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Authority;
+import com.team3.DogCare.SignService.Domain.Inquiry;
 import com.team3.DogCare.SignService.Domain.Member;
-import com.team3.DogCare.SignService.Domain.dto.BanDto;
-import com.team3.DogCare.SignService.Domain.dto.SignRequest;
-import com.team3.DogCare.SignService.Domain.dto.SignResponse;
-import com.team3.DogCare.SignService.Domain.dto.UserRequest;
+import com.team3.DogCare.SignService.Domain.dto.*;
+import com.team3.DogCare.SignService.Repository.InquiryRepository;
 import com.team3.DogCare.SignService.Repository.MemberRepository;
 import com.team3.DogCare.SignService.Security.JwtProvider;
 
@@ -41,8 +40,10 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     @Autowired
     private final JwtProvider jwtProvider;
-
+    @Autowired
     private final PetService petService;
+    @Autowired
+    private InquiryRepository inquiryRepository;
 
 
     public SignResponse login(SignRequest request) {
@@ -64,7 +65,6 @@ public class MemberService {
                 .name(member.getName())
                 .email(member.getEmail())
                 .roles(member.getRoles())
-                .doctor_check(member.getDoctor_check())
                 .token(jwtProvider.createToken(member.getAccount(), member.getRoles()))
                 .build();
     }
@@ -77,7 +77,6 @@ public class MemberService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .name(request.getName())
                     .email(request.getEmail())
-                    .doctor_check(request.getDoctor_check())
                     .build();
 
             member.setRoles(Collections.singletonList(Authority.builder().name("ROLE_USER").build()));
@@ -141,6 +140,7 @@ public class MemberService {
 
         petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
+        deleteInquiriesByMember(memberId);
         memberRepository.deleteById(member.getId());
 
 
@@ -157,6 +157,7 @@ public class MemberService {
 
         petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
+        deleteInquiriesByMember(memberId);
         memberRepository.deleteById(member.getId());
 
         return true;
@@ -174,7 +175,38 @@ public class MemberService {
 
         return memberRepository.findAll();
     }
+    public Boolean inquiry(InquiryDto request) throws Exception {
+        Member member = memberRepository.findById(request.getMemberId()).orElseThrow(() ->
+                new SignException("해당 계정을 찾을 수 없습니다."));
 
+        Inquiry inquiry = Inquiry.builder()
+                .inquiryId(request.getInquiryId())
+                .title(request.getTitle())
+                .content(request.getContent())
+                .member(member)
+                .createTime(request.getCreateTime())
+                .build();
+        inquiryRepository.save(inquiry);
 
+        return true;
+    }
+
+    public List<Inquiry> getInquiries(){
+        return inquiryRepository.findAll();
+    }
+
+    public List<Inquiry> getMemberInquiries(Long memberId){
+        return inquiryRepository.findAllByMemberId(memberId);
+    }
+
+    public void deleteInquiry(Long InquiryId){
+        inquiryRepository.deleteById(InquiryId);
+    }
+
+    public void deleteInquiriesByMember(Long memberId){
+        inquiryRepository.findAllByMemberId(memberId).forEach(i ->{
+            deleteInquiry(i.getInquiryId());
+        });
+    }
 
 }

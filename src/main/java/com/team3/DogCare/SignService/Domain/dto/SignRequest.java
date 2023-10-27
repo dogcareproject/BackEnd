@@ -15,6 +15,5 @@ public class SignRequest {
 
     private String email;
 
-    private String Doctor_check;
 
 }

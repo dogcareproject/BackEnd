@@ -126,16 +126,7 @@ public class PetService {
         vaccineRepository.deleteById(vaccineId);
     }
 
-    /*public void deleteVaccineByMember(Long memberId) {
-        vaccineRepository.findAllByMemberId(memberId).forEach(v->{
-            deleteVaccine(v.getVaccineId());
-        });
-    }*/
-    /*public void deleteVaccineByPet(Long petId) {
-        vaccineRepository.findAllByPetPetId(petId).forEach(v->{
-            deleteVaccine(v.getVaccineId());
-        });
-    }*/
+
     public void deleteVaccineByPet(List<Long> petIds) {
         for (Long petId : petIds) {
             vaccineRepository.deleteByPetPetId(petId);

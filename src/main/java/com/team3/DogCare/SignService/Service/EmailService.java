@@ -67,4 +67,23 @@ public class EmailService {
         return true;
     }
 
+    public Boolean sendInquiryEmail(EmailDto response) throws Exception {
+        Member member = memberRepository.findById(response.getMemberId()).orElseThrow(() ->
+                new Exception("계정을 찾을 수 없습니다."));
+        EmailDto email = new EmailDto();
+        email.setAddress(member.getEmail());
+        email.setTitle(member.getName()+"님의 멍멍케어 문의 답변입니다.");
+        email.setMessage(response.getMessage());
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email.getAddress());
+        message.setFrom(hostSMTPid);
+        message.setSubject(email.getTitle());
+        message.setText(email.getMessage());
+
+        emailSender.send(message);
+
+        return true;
+    }
+
 }

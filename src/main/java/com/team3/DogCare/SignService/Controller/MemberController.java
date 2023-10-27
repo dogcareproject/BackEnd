@@ -1,10 +1,8 @@
 package com.team3.DogCare.SignService.Controller;
 
+import com.team3.DogCare.SignService.Domain.Inquiry;
 import com.team3.DogCare.SignService.Domain.Member;
-import com.team3.DogCare.SignService.Domain.dto.BanDto;
-import com.team3.DogCare.SignService.Domain.dto.SignRequest;
-import com.team3.DogCare.SignService.Domain.dto.SignResponse;
-import com.team3.DogCare.SignService.Domain.dto.UserRequest;
+import com.team3.DogCare.SignService.Domain.dto.*;
 import com.team3.DogCare.SignService.Service.EmailService;
 import com.team3.DogCare.SignService.Service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -114,5 +112,43 @@ public class MemberController {
     public ResponseEntity<List<Member>> getMembers() {
         return new ResponseEntity<>(memberService.getMemberList(), HttpStatus.OK);
     }
+
+    @GetMapping("/admin/getMemberInquiries")
+    public ResponseEntity<List<Inquiry>> getMemberInquirys(@RequestParam Long memberId) {
+        return new ResponseEntity<>(memberService.getMemberInquiries(memberId), HttpStatus.OK);
+    }//받는 인자 : memberId;
+    // /getMemberInquirys?memberId=123 형식으로 받을것.
+
+    @GetMapping("/admin/getInquiries")
+    public ResponseEntity<List<Inquiry>> getInquirys() {
+        return new ResponseEntity<>(memberService.getInquiries(), HttpStatus.OK);
+    }
+    @DeleteMapping("/admin/deleteInquiries")
+    public ResponseEntity<?> deleteInquirys(@RequestBody InquiryDto request){
+        memberService.deleteInquiry(request.getInquiryId());
+        return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/user/inquiry")
+    public ResponseEntity<?> inquiry(@RequestBody InquiryDto request){
+        try{
+            return new ResponseEntity<>(memberService.inquiry(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        } //받는 인자 : Long memberid, String content, String title, LocalDate createTime
+    }
+
+    @PostMapping("/admin/inquiryAnswer")
+    public ResponseEntity<?> inquiryAnswer(@RequestBody EmailDto request){
+        try{
+            return new ResponseEntity<>(emailService.sendInquiryEmail(request), HttpStatus.OK);
+        }catch (Exception e){
+            String errorMessage = e.getMessage();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
+        } //받는 인자 : Long memberid, String content, String title, LocalDate createTime
+    }
+
+
 
 }
