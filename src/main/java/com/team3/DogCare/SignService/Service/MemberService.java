@@ -65,6 +65,7 @@ public class MemberService {
                 .name(member.getName())
                 .email(member.getEmail())
                 .roles(member.getRoles())
+                .password(member.getPassword())
                 .token(jwtProvider.createToken(member.getAccount(), member.getRoles()))
                 .build();
     }

@@ -23,6 +23,7 @@ public class SignResponse {
 
     private String email;
 
+    private String password;
 
     private List<Authority> roles = new ArrayList<>();
 
@@ -37,6 +38,7 @@ public class SignResponse {
         this.email = member.getEmail();
         this.ban = member.getBan();
         this.roles = getRoles();
+        this.password = getPassword();
     }
 }
 

@@ -122,8 +122,7 @@ public class PetService {
         return vaccineRepository.findAllByPetPetId(petId);
 
     }
-    public void deleteVaccine(Long vaccineId){
-        vaccineRepository.deleteById(vaccineId);
+    public void deleteVaccine(Long vaccineId){vaccineRepository.deleteById(vaccineId);
     }
 
 

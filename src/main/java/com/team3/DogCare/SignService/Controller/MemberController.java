@@ -25,6 +25,9 @@ public class MemberController {
     @Autowired
     private final EmailService emailService;
 
+
+
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> signin(@RequestBody SignRequest request) {
         try {
@@ -55,7 +58,7 @@ public class MemberController {
         }catch (SignException e) {
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
-        }//받는 인자 : email, password, id (id로 계정 확인 후, 받은 email과 password로 계정 정보 변경)
+        }//받는 인자 : email, password, name,id (id로 계정 확인 후, 받은 email과 password로 계정 정보 변경)
         //기본적으로 회원정보 변경시 로그인한 유저의 정보가 미리 기입되어 있게 할것.
 
     }
