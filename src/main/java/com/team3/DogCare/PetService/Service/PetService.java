@@ -1,12 +1,11 @@
 package com.team3.DogCare.PetService.Service;
 
 import com.team3.DogCare.PetService.Domain.Pet;
+import com.team3.DogCare.PetService.Domain.SaveData;
 import com.team3.DogCare.PetService.Domain.Vaccine;
-import com.team3.DogCare.PetService.Domain.dto.FeedRequest;
-import com.team3.DogCare.PetService.Domain.dto.PetRequest;
-import com.team3.DogCare.PetService.Domain.dto.VaccineRequest;
-import com.team3.DogCare.PetService.Domain.dto.WeightDto;
+import com.team3.DogCare.PetService.Domain.dto.*;
 import com.team3.DogCare.PetService.Repository.PetRepository;
+import com.team3.DogCare.PetService.Repository.SaveDataRepository;
 import com.team3.DogCare.PetService.Repository.VaccineRepository;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Member;
@@ -15,15 +14,22 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class PetService {
-
     @Autowired
     private final MemberRepository memberRepository;
 
@@ -32,6 +38,8 @@ public class PetService {
 
     @Autowired
     private final VaccineRepository vaccineRepository;
+    @Autowired
+    private final SaveDataRepository saveDataRepository;
 
     public boolean register(PetRequest request) throws Exception{
         Member member = memberRepository.findById(request.getOwnerId()).orElseThrow(()->
@@ -153,6 +161,57 @@ public class PetService {
         else {
             return "반려견의 적정 체중은 " + result + "kg 입니다." + needlose + "kg 만큼 체중 감량이 필요합니다.";
         }
+    }
+
+    public String checkEyes(MultipartFile image) throws IOException, URISyntaxException {
+        String result;
+
+            // 현재 실행 중인 jar 파일의 경로를 가져옵니다.
+        String userHome = System.getProperty("/home/t23203");;
+
+        // "SaveData" 폴더를 디렉토리 화면에 생성합니다.
+        Path saveDataPath = Paths.get(userHome, "Images");
+        if (!Files.exists(saveDataPath)) {
+            Files.createDirectories(saveDataPath);
+        }
+
+        // 이미지 파일 이름을 수정하여 상대 경로로 저장합니다.
+        String modifiedFileName = UUID.randomUUID().toString()+".jpg";
+
+        Path imagePath = saveDataPath.resolve(modifiedFileName);
+        Files.write(imagePath, image.getBytes());
+
+
+       /* String userHome = System.getProperty("user.home");
+
+        // 사용자 홈 디렉토리 아래 바탕화면 경로 생성
+        Path desktopPath = Paths.get(userHome, "Desktop");
+
+        // "SaveData" 폴더를 바탕화면에 생성
+        Path saveDataPath = desktopPath.resolve("SaveData");
+        if (!Files.exists(saveDataPath)) {
+            Files.createDirectories(saveDataPath);
+        }
+
+        // 이미지 파일 이름을 동적으로 생성
+        String uniqueFileName = generateUniqueFileName();
+        String fileName = uniqueFileName + ".jpg";
+        Path imagePath = saveDataPath.resolve(fileName);
+        Files.write(imagePath, image.getBytes());*/
+
+        /*SaveData saveData = SaveData.builder()
+                .Age(request.getAge())
+                .Breed(request.getBreed())
+                .Gender(request.getGender())
+                .Identifier(request.getIdentifier())
+                //.Disease_name()
+                .build();
+        saveDataRepository.save(saveData);// 이미지 파일을 SaveData 디렉토리에 저장
+        //병명 추가*/
+
+        // 저장한 이미지 파일의 경로를 얻을 수 있습니다.
+        String imageFileUrl = imagePath.toString();
+        return "이미지 저장 완료";//"반려견의 진단결과는" +result+"입니다.";
     }
 
 

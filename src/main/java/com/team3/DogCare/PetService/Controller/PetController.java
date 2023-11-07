@@ -3,10 +3,7 @@ package com.team3.DogCare.PetService.Controller;
 
 import com.team3.DogCare.PetService.Domain.Pet;
 import com.team3.DogCare.PetService.Domain.Vaccine;
-import com.team3.DogCare.PetService.Domain.dto.FeedRequest;
-import com.team3.DogCare.PetService.Domain.dto.PetRequest;
-import com.team3.DogCare.PetService.Domain.dto.VaccineRequest;
-import com.team3.DogCare.PetService.Domain.dto.WeightDto;
+import com.team3.DogCare.PetService.Domain.dto.*;
 import com.team3.DogCare.PetService.Service.PetService;
 import com.team3.DogCare.SignService.Controller.SignException;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -84,6 +82,10 @@ public class PetController {
     }//받는 인자 : weight(현재 체중),BCS(신체 상태 점수, 그림을 보고 1~9점으로)
 
 
+    @PostMapping(value = "/checkEyes")
+    public ResponseEntity<String> checkeyes(@RequestPart MultipartFile image) throws Exception {
+        return new ResponseEntity<>(petService.checkEyes(image), HttpStatus.OK);
+    }
 
 
 }

@@ -59,7 +59,7 @@ public class SecurityConfig {
                 // 조건별로 요청 허용/제한 설정
                 .authorizeHttpRequests()
                 // 회원가입과 로그인은 모두 승인
-                .requestMatchers("/register", "/login","/Find/**","/adminRegister","/home","/","index.html","*","/static/**").permitAll()
+                .requestMatchers("/register", "/login","/Find/**","/adminRegister","/home","/","index.html","/static/**").permitAll()
                 // /admin으로 시작하는 요청은 ADMIN 권한이 있는 유저에게만 허용
                 .requestMatchers("/admin/**","/getMemberList").hasAnyAuthority("ROLE_ADMIN","ADMIN")
                 // /user로 시작하는 요청은 USER 권한이 있는 유저에게만 허용
@@ -69,8 +69,8 @@ public class SecurityConfig {
                 // JWT 인증 필터 적용
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class)
                 // 에러 핸들링
-                .exceptionHandling();
-                /*.accessDeniedHandler(new AccessDeniedHandler() {
+                .exceptionHandling()
+                .accessDeniedHandler(new AccessDeniedHandler() {
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
                         // 권한 문제가 발생했을 때 이 부분을 호출한다.
@@ -89,7 +89,7 @@ public class SecurityConfig {
                         response.setContentType("text/html; charset=UTF-8");
                         response.getWriter().write("인증되지 않은 사용자입니다.");
                     }
-                });*/
+                });
 
         return http.build();
     }
