@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Yeon+Sung&display=swap');
+
+.App {
+  /* width: 100%; */
+  /* height: 100%; */
+  padding-bottom: 56.25%;
+  /* background-image: url('./image/11.png'); */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  color: black;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.homeImg {
+  float: right;
+
+  margin-right: 200px;
+  margin-top: 50px;
+}
+
+.homeImg2 {
+  position: relative;
+  bottom: 50px;
+
+  float: right;
+
+  margin-top: 50px;
+  margin-left: 230px;
+}
+
+.Home {
+  position: relative;
+  float: left;
+
+  left: 200px;
+  margin-left: 80px;
+  margin-top: 130px;
+}
+
+.MyHeader {
+  padding-top: 5px;
+  padding-left: 25px;
+  padding-bottom: 5px;
+
+  background-color: #ffbf00;
+
+  font-size: 15px;
+}
+
+.logBtn {
+  display: flex;
+  float: right;
+
+  margin-right: 20px;
+}
+
+.logBtn button {
+  top: 10px;
+  font-size: 12px;
+  border: none;
+  border-radius: 2px;
+  background: none;
+}
+
+/* nav 밑에 위치 이상하면 여기 */
+.navbar {
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+  background-color: #ffbf00;
+}
+
+.navbar .navbarMenu {
+  margin-left: 50px;
+  font-size: 12px;
+}
+
+.navbar button {
+  font-family: 'Nanum Pen Script';
+  font-size: 20px;
+  position: relative;
+  top: -80px;
+  cursor: pointer;
+}
+
+.Login {
+  position: relative;
+  left: 43%;
+  /* justify-content: center; */
+  top: 100px;
+  font-family: 'Nanum Pen Script';
+  min-height: 100vh;
+  margin: 0px auto;
+
+  color: black;
+}
+
+.Login input {
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+  background: none;
+  text-decoration: solid;
+}
+
+.Login input::placeholder {
+  color: rgb(32, 5, 5);
+}
+
+.Login button {
+  margin-left: 120px;
+
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  background-color: antiquewhite;
+  padding: 4px;
+  box-shadow: 1px 1px 3px rgb(139, 102, 102);
+}
+
+.demo-loadmore-list {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#input12 {
+  border: none;
+  border-bottom: 1px solid black;
+  background: none;
+
+  width: 60px;
+}
+
+#btn12 {
+  border: none;
+}
+
+.demo-loadmore-list button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  box-shadow: 0.5px 0.5px 0.5px #ccac4c;
+
+  padding: 3px;
+}
+
+.pagination {
+  position: relative;
+  left: 75%;
+  margin-top: 25px;
+}
+
+.InquiryList {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.search-input {
+  position: relative;
+  left: 70%;
+
+  margin-bottom: 10px;
+}
+
+.search-input input {
+  margin-right: 8px;
+
+  width: 130px;
+  border: none;
+  border-bottom: solid 1px black;
+}
+
+.search-input button {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  box-shadow: 0.5px 0.5px 0.5px #ccac4c;
+
+  padding: 3px;
+}
+
+.Inquiry {
+  position: relative;
+  left: 43%;
+}

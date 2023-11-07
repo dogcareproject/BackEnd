@@ -8,7 +8,6 @@ spring:
     password: dbpass232
     #username: Dogprj
     #password: Dogprj
-
     #username: dbid231
     #password: dbpass231
 

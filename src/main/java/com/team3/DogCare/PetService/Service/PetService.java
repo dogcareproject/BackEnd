@@ -233,8 +233,8 @@ public class PetService {
 
     public checkResponse checkEyes(MultipartFile image) throws IOException, URISyntaxException {
 
-        String userHome = "/home/t23203";
-        //String userHome = System.getProperty("user.home");
+        //String userHome = "/home/t23203";
+        String userHome = System.getProperty("user.home");
         Path saveDataPath = Paths.get(userHome, "EyeImages");
         if (!Files.exists(saveDataPath)) {
             Files.createDirectories(saveDataPath);
