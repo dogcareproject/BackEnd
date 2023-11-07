@@ -85,7 +85,7 @@ public class PetController {
     @PostMapping(value = "/checkEyes")
     public ResponseEntity<String> checkeyes(@RequestPart MultipartFile image) throws Exception {
         return new ResponseEntity<>(petService.checkEyes(image), HttpStatus.OK);
-    }
+    }//image:xxx.jpg 꼴로 받음.
 
 
 }

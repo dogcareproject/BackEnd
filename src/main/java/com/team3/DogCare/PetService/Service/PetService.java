@@ -65,11 +65,9 @@ public class PetService {
     public boolean infoChange(PetRequest request){
         Pet pet = petRepository.findById(request.getPetId()).orElseThrow(() ->
                 new SignException("해당 계정을 찾을 수 없습니다."));
-            pet.setBreed(request.getBreed());
             pet.setAge(request.getAge());
             pet.setName(request.getName());
             pet.setWeight(request.getWeight());
-            pet.setGender(request.getGender());
 
         petRepository.save(pet);
 
@@ -167,7 +165,7 @@ public class PetService {
         String result;
 
             // 현재 실행 중인 jar 파일의 경로를 가져옵니다.
-        String userHome = System.getProperty("/home/t23203");;
+        String userHome = "/home/t23203";
 
         // "SaveData" 폴더를 디렉토리 화면에 생성합니다.
         Path saveDataPath = Paths.get(userHome, "Images");
