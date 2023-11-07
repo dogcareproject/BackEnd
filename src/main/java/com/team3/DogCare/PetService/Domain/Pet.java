@@ -38,4 +38,13 @@ public class Pet {
 
     @Column
     private String weight;
+
+    @Column
+    private String approxyWeight;
+
+    @Column
+    private String feed;
+
+    @Column
+    private String needKcal;
 }

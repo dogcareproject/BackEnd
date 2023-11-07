@@ -48,17 +48,18 @@ public class PetController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
         }//받는 인자 : name, weight, gender, age, breed,petId /petId로 찾아서 정보 변경
     }
+
     @GetMapping(value = "/pets")
     public List<Pet> getPetList(@RequestParam Long memberId) {
         return petService.getPetList(memberId);
     }//user/pet/pets?memberId=asd
 
 
-    @PostMapping(value = "/feed")
-    public ResponseEntity<String> addPet(@RequestBody FeedRequest request) {
+    @PutMapping(value = "/feed")
+    public ResponseEntity<Boolean> addPet(@RequestBody FeedRequest request) {
         return new ResponseEntity<>(petService.feedPet(request), HttpStatus.OK);
-    }//받는 인자 : age, weight , type
-    //https://www.fitpetmall.com/blog/dog-food-amount/ type은 해당 주소에서 DER계산식에 따름
+    }//받는 인자 : Long petId; String Feed;
+
 
     @PostMapping(value = "/addVaccine")
     public ResponseEntity<Boolean> addVaccine(@RequestBody VaccineRequest request) throws Exception{
@@ -76,14 +77,19 @@ public class PetController {
         return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);
     }//받는 인자 : vaccineId, ID를 받아서 삭제.
 
-    @PostMapping(value = "/weightCalcul")
-    public ResponseEntity<String> appropriateWeight(@RequestBody WeightDto request) {
+    @PutMapping(value = "/weight")
+    public ResponseEntity<Boolean> appropriateWeight(@RequestBody WeightDto request) {
         return new ResponseEntity<>(petService.appropriateWeight(request), HttpStatus.OK);
-    }//받는 인자 : weight(현재 체중),BCS(신체 상태 점수, 그림을 보고 1~9점으로)
+    }//받는 인자 : Long petId, String weight
 
+
+    @PostMapping(value = "/checkSkin")
+    public ResponseEntity<checkResponse> checkskin(@RequestPart MultipartFile image) throws Exception {
+        return new ResponseEntity<>(petService.checkSkin(image), HttpStatus.OK);
+    }//image:xxx.jpg 꼴로 받음.
 
     @PostMapping(value = "/checkEyes")
-    public ResponseEntity<String> checkeyes(@RequestPart MultipartFile image) throws Exception {
+    public ResponseEntity<checkResponse> checkeyes(@RequestPart MultipartFile image) throws Exception {
         return new ResponseEntity<>(petService.checkEyes(image), HttpStatus.OK);
     }//image:xxx.jpg 꼴로 받음.
 

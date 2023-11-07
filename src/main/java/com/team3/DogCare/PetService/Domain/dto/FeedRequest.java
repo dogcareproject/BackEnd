@@ -7,13 +7,9 @@ import lombok.Setter;
 @Setter
 public class FeedRequest {
 
-    private Long age;
+    private Long petId;
 
-    private double weight;
+    private String feed;
 
-    private double feedCal; //사료 전체 칼로리
-
-    private double feedWeight; // 사료 무게
-
-    private double type; //타입 (성견인지, 과체중 성견인지, 중성화or 비중성화인지)
+    private String needKcal;
 }

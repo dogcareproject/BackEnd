@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class WeightDto {
 
-    private double BCS;
+    private Long petId;
 
-    private double weight;
+    private String weight;
 }
