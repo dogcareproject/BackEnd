@@ -88,6 +88,10 @@ public class PetService {
         return petRepository.findAllByMemberId(ownerId);
     }
 
+    public List<Pet> getPets(){
+        return petRepository.findAll();
+    }
+
     public Boolean feedPet(FeedRequest request){
     Pet pet = petRepository.findById(request.getPetId()).orElseThrow(()->
             new IllegalArgumentException("Invalid pet id: " + request.getPetId()));
