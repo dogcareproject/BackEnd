@@ -1,12 +1,13 @@
 package com.team3.DogCare.PetService.Service;
 
 import com.team3.DogCare.PetService.Domain.Pet;
-import com.team3.DogCare.PetService.Domain.SaveData;
 import com.team3.DogCare.PetService.Domain.Vaccine;
+import com.team3.DogCare.PetService.Domain.Walk;
 import com.team3.DogCare.PetService.Domain.dto.*;
 import com.team3.DogCare.PetService.Repository.PetRepository;
 import com.team3.DogCare.PetService.Repository.SaveDataRepository;
 import com.team3.DogCare.PetService.Repository.VaccineRepository;
+import com.team3.DogCare.PetService.Repository.WalkRepository;
 import com.team3.DogCare.SignService.Controller.SignException;
 import com.team3.DogCare.SignService.Domain.Member;
 import com.team3.DogCare.SignService.Repository.MemberRepository;
@@ -16,13 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +39,8 @@ public class PetService {
     private final VaccineRepository vaccineRepository;
     @Autowired
     private final SaveDataRepository saveDataRepository;
+    @Autowired
+    private final WalkRepository walkRepository;
 
     public boolean register(PetRequest request) throws Exception{
         Member member = memberRepository.findById(request.getOwnerId()).orElseThrow(()->
@@ -319,7 +320,37 @@ public class PetService {
         return checkResponse.builder().disease(Disease).info(info).build();
     }
 
+    public Boolean addWalk(WalkRequest request)throws Exception{
+        Pet pet = petRepository.findById(request.getPetId()).orElseThrow(()->
+                new IllegalArgumentException("Invalid member id: " + request.getPetId()));
 
+        try{
+            Walk walk = Walk.builder()
+                    .walkDistance(request.getWalkDistance())
+                    .pet(pet)
+                    .walkDate(request.getWalkDate())
+                    .walkID(request.getWalkId())
+                    .build();
+            walkRepository.save(walk);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new Exception("잘못된 요청입니다.");
+        }
+        return true;
+    }
+
+    public List<Walk> getWalkByPet(Long petId){
+
+        return walkRepository.findAllByPetPetId(petId);
+    }
+
+    public List<Walk> getWalkByMemberId(Long memberId){
+        return walkRepository.findByPetMemberId(memberId);
+    }
+
+    public List<Walk> getAllWalk(){
+        return walkRepository.findAll();
+    }
 
 
 }

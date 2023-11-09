@@ -3,6 +3,7 @@ package com.team3.DogCare.PetService.Controller;
 
 import com.team3.DogCare.PetService.Domain.Pet;
 import com.team3.DogCare.PetService.Domain.Vaccine;
+import com.team3.DogCare.PetService.Domain.Walk;
 import com.team3.DogCare.PetService.Domain.dto.*;
 import com.team3.DogCare.PetService.Service.PetService;
 import com.team3.DogCare.SignService.Controller.SignException;
@@ -93,5 +94,19 @@ public class PetController {
         return new ResponseEntity<>(petService.checkEyes(image), HttpStatus.OK);
     }//image:xxx.jpg 꼴로 받음.
 
+
+    @PostMapping(value = "/addWalk")
+    public ResponseEntity<Boolean> addWalk(@RequestBody WalkRequest request) throws Exception{
+        return new ResponseEntity<>(petService.addWalk(request), HttpStatus.OK);
+    }//Double walkDistance , Long petId, LocalDate walkDate
+
+    @GetMapping(value = "/walks")
+    public List<Walk> getWalk(@RequestParam Long petId) throws Exception{
+        return petService.getWalkByPet(petId);
+    }
+    @GetMapping(value = "/walksByMember")
+    public List<Walk> getWalkByMember(@RequestParam Long MemberId) throws Exception{
+        return petService.getWalkByMemberId(MemberId);
+    }
 
 }
