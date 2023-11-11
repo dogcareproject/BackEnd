@@ -139,6 +139,7 @@ public class MemberService {
                 .map(Pet::getPetId) // 각 Pet 엔티티에서 petId를 추출
                 .collect(Collectors.toList());
 
+        petService.deleteWalkByPet(petId);
         petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
         deleteInquiriesByMember(memberId);
@@ -156,6 +157,7 @@ public class MemberService {
                 .map(Pet::getPetId)
                 .collect(Collectors.toList());
 
+        petService.deleteWalkByPet(petId);
         petService.deleteVaccineByPet(petId);
         petService.deletePetByMember(memberId);
         deleteInquiriesByMember(memberId);

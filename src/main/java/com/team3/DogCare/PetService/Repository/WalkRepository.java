@@ -13,6 +13,7 @@ import java.util.List;
 public interface WalkRepository extends JpaRepository <Walk,Long> {
     List<Walk> findByPetMemberId(Long memberId);
     List<Walk> findAllByPetPetId(Long petId);
+    void deleteByPetPetId(Long petId);
 
     @Query("SELECT w.pet.breed, AVG(w.walkTime), AVG(w.walkDistance) " +
             "FROM Walk w " +

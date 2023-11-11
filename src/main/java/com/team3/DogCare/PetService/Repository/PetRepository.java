@@ -18,8 +18,13 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
     Optional<Pet> findByMemberIdAndName(String ownerId, String name);
     List<Pet> findAllByMemberId(Long ownerId);
 
-    @Query(value = "SELECT breed, AVG(weight) FROM pet GROUP BY breed", nativeQuery = true)
+    @Query("SELECT p.breed, MAX(p.weight), AVG(p.weight), MIN(p.weight) " +
+            "FROM Pet p " +
+            "GROUP BY p.breed")
     List<Object[]> findAverageWeightByBreed();
+
+    /*@Query(value = "SELECT breed, AVG(weight) FROM pet GROUP BY breed", nativeQuery = true)
+    List<Object[]> findAverageWeightByBreed();*/
 
 
 

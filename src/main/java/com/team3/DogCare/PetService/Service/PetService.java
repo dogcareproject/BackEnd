@@ -136,6 +136,13 @@ public class PetService {
         }
     }
 
+    public void deleteWalkByPet(List<Long> petIds) {
+        for (Long petId : petIds) {
+            walkRepository.deleteByPetPetId(petId);
+        }
+    }
+
+
     public Boolean appropriateWeight(WeightDto request){
         Pet pet = petRepository.findById(request.getPetId()).orElseThrow(()->
                 new IllegalArgumentException("Invalid member id: " + request.getPetId()));
