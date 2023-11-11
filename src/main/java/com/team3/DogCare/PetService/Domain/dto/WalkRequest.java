@@ -17,4 +17,6 @@ public class WalkRequest {
     private LocalDate walkDate;
 
     private Long petId;
+
+    private Double walkTime;
 }

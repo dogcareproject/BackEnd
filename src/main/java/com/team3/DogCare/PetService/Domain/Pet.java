@@ -37,7 +37,7 @@ public class Pet {
     private String age;
 
     @Column
-    private String weight;
+    private Double weight;
 
     @Column
     private String approxyWeight;

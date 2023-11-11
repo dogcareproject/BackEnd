@@ -30,5 +30,8 @@ public class Walk {
     @Column
     private LocalDate walkDate;
 
+    @Column
+    private Double walkTime;
+
 
 }

@@ -1,21 +1,21 @@
 spring:
   datasource:
-    #url: jdbc:mariadb://localhost:3306/db23203
-    url: jdbc:mariadb://49.161.110.41:3306/DogDB
+    url: jdbc:mariadb://localhost:3306/db23203
+    #url: jdbc:mariadb://49.161.110.41:3306/DogDB
     #url: jdbc:mariadb://49.161.110.41:3306/test6?useUnicode=true&characterEncoding=utf8
     driver-class-name: org.mariadb.jdbc.Driver
-    #username: dbid232
-    #password: dbpass232
-    username: Dogprj
-    password: Dogprj
-    #username: dbid231
-    #password: dbpass231
+    username: dbid232
+    password: dbpass232
+    #username: Dogprj
+    #password: Dogprj
+
 
   jpa:
     show-sql: true
     properties:
       hibernate:
         default_batch_fetch_size: 1000
+
     hibernate:
       ddl-auto: update
       #ddl 명령어 :
@@ -40,5 +40,5 @@ jwt:
   secret:
     key: z$C&F)J@NcRfUjXnZr4u7x!A%D*G-KaP
 
-#server:
-  #port: 60003
+server:
+  port: 60003

@@ -16,7 +16,7 @@ public class CheckRequest {
 
     private String age;
 
-    private String weight;
+    private Double weight;
 
     private String identifier;
 

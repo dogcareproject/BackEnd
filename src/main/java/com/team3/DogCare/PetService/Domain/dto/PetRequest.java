@@ -21,5 +21,5 @@ public class PetRequest {
 
     private String age;
 
-    private String weight;
+    private Double weight;
 }

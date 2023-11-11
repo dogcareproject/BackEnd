@@ -22,8 +22,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Transactional
@@ -330,6 +329,7 @@ public class PetService {
                     .pet(pet)
                     .walkDate(request.getWalkDate())
                     .walkID(request.getWalkId())
+                    .walkTime(request.getWalkTime())
                     .build();
             walkRepository.save(walk);
         } catch (Exception e){
@@ -352,5 +352,34 @@ public class PetService {
         return walkRepository.findAll();
     }
 
+
+    public List<Object[]> getAverageWeightByBreed() {
+        return petRepository.findAverageWeightByBreed();
+    }
+
+    public List<Object[]> getAverageWalk() {
+        return walkRepository.findAverageWalk();
+    }
+
+    public List<Map<String, Object>> getAverageWalkInfoByBreed() {
+        List<Object[]> averageWalkInfoByBreedList = walkRepository.findAverageWalkInfoByBreed();
+
+        List<Map<String, Object>> responseList = new ArrayList<>();
+
+        for (Object[] result : averageWalkInfoByBreedList) {
+            String breed = (String) result[0];
+            Double averageWalkTime = (Double) result[1];
+            Double averageWalkDistance = (Double) result[2];
+
+            Map<String, Object> walkInfoMap = new HashMap<>();
+            walkInfoMap.put("breed", breed);
+            walkInfoMap.put("averageWalkTime", averageWalkTime);
+            walkInfoMap.put("averageWalkDistance", averageWalkDistance);
+
+            responseList.add(walkInfoMap);
+        }
+
+        return responseList;
+    }
 
 }

@@ -108,5 +108,19 @@ public class PetController {
     public List<Walk> getWalkByMember(@RequestParam Long MemberId) throws Exception{
         return petService.getWalkByMemberId(MemberId);
     }
+    @GetMapping(value = "/weightByBreed")
+    public List<Object[]> getAVGWeight() throws Exception{
+        return petService.getAverageWeightByBreed();
+    }
+    @GetMapping(value = "/walkAVG")
+    public List<Object[]> getAVGWalk() throws Exception{
+        return petService.getAverageWalk();
+    }
+    @GetMapping(value = "/walkAVGByBreed")
+    public List<?> getAVGWalkByBreed() throws Exception{
+        return petService.getAverageWalkInfoByBreed();
+    }
+
+
 
 }
