@@ -126,7 +126,7 @@ public class MemberController {
     public ResponseEntity<List<Inquiry>> getInquirys() {
         return new ResponseEntity<>(memberService.getInquiries(), HttpStatus.OK);
     }
-    @DeleteMapping("/admin/deleteInquiries")
+    @PostMapping("/admin/deleteInquiries")
     public ResponseEntity<?> deleteInquirys(@RequestBody InquiryDto request){
         memberService.deleteInquiry(request.getInquiryId());
         return new ResponseEntity<>("삭제되었습니다.", HttpStatus.OK);

@@ -198,6 +198,7 @@ public class MemberService {
         return inquiryRepository.findAll();
     }
 
+
     public List<Inquiry> getMemberInquiries(Long memberId){
         return inquiryRepository.findAllByMemberId(memberId);
     }
