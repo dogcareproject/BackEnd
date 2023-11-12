@@ -75,7 +75,14 @@ public class PetService {
     }
 
     public void deletePet(Long petId){
-
+        List<Walk> walks = walkRepository.findAllByPetPetId(petId);
+        for (Walk walk : walks){
+            walkRepository.delete(walk);
+        }
+        List<Vaccine> vaccines = vaccineRepository.findAllByPetPetId(petId);
+        for (Vaccine vaccine : vaccines){
+            vaccineRepository.delete(vaccine);
+        }
         petRepository.deleteById(petId);
     }
     public void deletePetByMember(Long memberId){
