@@ -65,7 +65,7 @@ const Login = () => {
     <div className="Login">
       <div className="Login-container">
         <form onSubmit={onSubmitHandler}>
-          <h2>로그인</h2>
+          <h3>관리자 로그인</h3>
           <div>
             <input
               type="text"
@@ -85,7 +85,7 @@ const Login = () => {
               autoComplete="off"
               onChange={onPasswordHandler} />
           </div>
-          <button type="submit">로그인</button>
+          <button type="submit"><i class="bi bi-door-open"></i>&nbsp;&nbsp;로그인</button>
         </form>
       </div>
     </div>

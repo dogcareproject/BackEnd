@@ -24,6 +24,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -148,6 +151,11 @@ public class PetService {
             walkRepository.deleteByPetPetId(petId);
         }
     }
+    public boolean deleteWalk(Long walkId) {
+
+            walkRepository.deleteById(walkId);
+        return true;
+    }
 
 
     public Boolean appropriateWeight(WeightDto request){
@@ -173,77 +181,95 @@ public class PetService {
         Path imagePath = saveDataPath.resolve(modifiedFileName);
         Files.write(imagePath, image.getBytes());
 
-
-       /* String userHome = System.getProperty("user.home");
-
-        // 사용자 홈 디렉토리 아래 바탕화면 경로 생성
-        Path desktopPath = Paths.get(userHome, "Desktop");
-
-        // "SaveData" 폴더를 바탕화면에 생성
-        Path saveDataPath = desktopPath.resolve("SaveData");
-        if (!Files.exists(saveDataPath)) {
-            Files.createDirectories(saveDataPath);
-        }
-
-        // 이미지 파일 이름을 동적으로 생성
-        String uniqueFileName = generateUniqueFileName();
-        String fileName = uniqueFileName + ".jpg";
-        Path imagePath = saveDataPath.resolve(fileName);
-        Files.write(imagePath, image.getBytes());*/
-
-        /*SaveData saveData = SaveData.builder()
-                .Age(request.getAge())
-                .Breed(request.getBreed())
-                .Gender(request.getGender())
-                .Identifier(request.getIdentifier())
-                //.Disease_name()
-                .build();
-        saveDataRepository.save(saveData);// 이미지 파일을 SaveData 디렉토리에 저장
-        //병명 추가*/
-
-        // 저장한 이미지 파일의 경로를 얻을 수 있습니다
-
         String imageFileUrl = imagePath.toString();
 
-        int code = 1;
+        //추가한 내용
+
+
+                String pythonScriptPath = "/home/t23203/AIModel/model_predict.py";
+                String inputImage = imageFileUrl;
+
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.command("python", pythonScriptPath, inputImage);
+
+        int predicted_class = 0;
+        double confidence = 0;
+        try {
+                    // 프로세스 실행
+                    Process process = processBuilder.start();
+
+                    // 프로세스의 출력을 읽기 위한 BufferedReader 생성
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+                    // 프로세스가 종료될 때까지 대기
+                    int exitCode = process.waitFor();
+
+                    // 프로세스 출력 읽기
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        System.out.println(line);
+
+                        if (line.startsWith("Predicted Class:")) {
+                            predicted_class = Integer.parseInt(line.split(":")[1].trim());
+                        } else if (line.startsWith("Confidence:")) {
+                            confidence = Double.parseDouble(line.split(":")[1].trim());
+                        }
+                    }
+
+                    System.out.println("프로세스 종료 코드: " + exitCode);
+                } catch (IOException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+
+
+        //변경, 추가한 내용
+        int code = predicted_class;
         String Disease = "";
         String info = "";
-        if (code == 1 ){
-            Disease = "구진, 플라크";
-            info = "구진이란 염증성 여드름 병변과 비염증성 여드름 병변의 중간 " +
-                    "형태이며 피부의 단단한 덩어리로 직경이 0.5cm~1cm를 구진, 그 이상을 플라크라 합니다." +
-                    "작고 딱딱한 붉은 색의 병변으로 안에 고름은 잡히지 않은 상태로 나타납니다.";
 
-        }else if(code == 2){
-            Disease = "비듬,각질,상피성잔고리";
-            info = "비듬, 각질은 정상적인 피부활동으로 생기는 피부 막이 떨어져 나가는 현상입니다."+
-                    "상피성잔고리는 농포나 수포가 파열한 후 나타나는 원형의 비듬입니다." +
-                    "피부병의 증상일 수 있으나, 주변 환경이나 스트레스에 의해 발생하기도 합니다.";
+        if (confidence <= 50) {
+            Disease = "잘 모르겠어요...";
+            info = "예측하기 어렵습니다. 다시 사진을 찍어주세요.";
+        } else {
 
-        }else if(code == 3){
-            Disease = "과다색소침착, 태선화";
-            info = "과다색소침착은 강아지의 피부나 모발에서 색소의 과다 침전을 나타내며, " +
-                    "이로 인해 해당 부위가 어두워지거나 색이 짙어질 수 있습니다." +
-                    "태선화는 피부가 두꺼워지고 단단하며, 거칠게 변합니다. 지속적인 자극이나 피부병으로 인해 발생할 수 있습니다.";
-        }else if(code == 4){
-            Disease = "농포,여드름";
-            info = "농포와 여드름 모두 피부에 생긴 작고 뾰족한 형태의 발진입니다."+
-                    "여드름의 경우 피지선의 과도한 분비나 기름진 털에 의해 발생할 수 있습니다."+
-                    "농포의 경우 염증 반응이 있거나 피부에 세균 감염이 있을 경우 발생할 수 있습니다.";
-        }else if(code ==5){
-            Disease = "미란,궤양";
-            info = "상처로 인해 표피가 떨어져 나가는 경우, 이 범위가 작고 표피에 한정되는 것을 미란이라 합니다."+
-                    "하지만 그 상처가 깊어 표피 이하까지 범위가 미치고, 탈락이 발생하는 경우 궤양이라 하고 흉터가 동반됩니다.";
+            if (code == 1 ){
+                Disease = "구진, 플라크";
+                info = "구진이란 염증성 여드름 병변과 비염증성 여드름 병변의 중간 " +
+                        "형태이며 피부의 단단한 덩어리로 직경이 0.5cm~1cm를 구진, 그 이상을 플라크라 합니다." +
+                        "작고 딱딱한 붉은 색의 병변으로 안에 고름은 잡히지 않은 상태로 나타납니다.";
 
-        }else if(code == 6){
-            Disease = "결절,종괴";
-            info = "결절과 종괴 모두 피부에서 생기는 혹을 말합니다. 이때 그 크기가 크면 종괴로, 작으면 결절이라 합니다."+
-                    "둘 모두 외부 상처나 감염으로 인한 염증반응으로 나타날 수 있습니다.";
-        }else if(code == 7 ){
-            Disease = "감염성피부염";
-            info = "피부에 발생하는 감염을 동반한 피부염을 나타냅니다. 이러한 감염은 피부에 있는 세균, 바이러스, 진드기 또는 기타 병원체에 의해 유발됩니다. " +
-                    "강아지 피부염은 다양한 형태와 원인을 가질 수 있으며, 일반적으로 감염성 피부염은 " +
-                    "피부의 염증 반응을 동반하고 피부 장애를 유발하는 감염에 의해 발생합니다.";
+            }else if(code == 2){
+                Disease = "비듬,각질,상피성잔고리";
+                info = "비듬, 각질은 정상적인 피부활동으로 생기는 피부 막이 떨어져 나가는 현상입니다."+
+                        "상피성잔고리는 농포나 수포가 파열한 후 나타나는 원형의 비듬입니다." +
+                        "피부병의 증상일 수 있으나, 주변 환경이나 스트레스에 의해 발생하기도 합니다.";
+
+            }else if(code == 3){
+                Disease = "과다색소침착, 태선화";
+                info = "과다색소침착은 강아지의 피부나 모발에서 색소의 과다 침전을 나타내며, " +
+                        "이로 인해 해당 부위가 어두워지거나 색이 짙어질 수 있습니다." +
+                        "태선화는 피부가 두꺼워지고 단단하며, 거칠게 변합니다. 지속적인 자극이나 피부병으로 인해 발생할 수 있습니다.";
+            }else if(code == 4){
+                Disease = "농포,여드름";
+                info = "농포와 여드름 모두 피부에 생긴 작고 뾰족한 형태의 발진입니다."+
+                        "여드름의 경우 피지선의 과도한 분비나 기름진 털에 의해 발생할 수 있습니다."+
+                        "농포의 경우 염증 반응이 있거나 피부에 세균 감염이 있을 경우 발생할 수 있습니다.";
+            }else if(code ==5){
+                Disease = "미란,궤양";
+                info = "상처로 인해 표피가 떨어져 나가는 경우, 이 범위가 작고 표피에 한정되는 것을 미란이라 합니다."+
+                        "하지만 그 상처가 깊어 표피 이하까지 범위가 미치고, 탈락이 발생하는 경우 궤양이라 하고 흉터가 동반됩니다.";
+
+            }else if(code == 6){
+                Disease = "결절,종괴";
+                info = "결절과 종괴 모두 피부에서 생기는 혹을 말합니다. 이때 그 크기가 크면 종괴로, 작으면 결절이라 합니다."+
+                        "둘 모두 외부 상처나 감염으로 인한 염증반응으로 나타날 수 있습니다.";
+            }else if(code == 7 ){
+                Disease = "감염성피부염";
+                info = "피부에 발생하는 감염을 동반한 피부염을 나타냅니다. 이러한 감염은 피부에 있는 세균, 바이러스, 진드기 또는 기타 병원체에 의해 유발됩니다. " +
+                        "강아지 피부염은 다양한 형태와 원인을 가질 수 있으며, 일반적으로 감염성 피부염은 " +
+                        "피부의 염증 반응을 동반하고 피부 장애를 유발하는 감염에 의해 발생합니다.";
+            }
         }
 
         return checkResponse.builder().disease(Disease).info(info).build();
@@ -252,7 +278,7 @@ public class PetService {
     public checkResponse checkEyes(MultipartFile image) throws IOException, URISyntaxException {
 
         //String userHome = "/home/t23203";
-        String userHome = System.getProperty("user.home");
+        String userHome = System.getProperty("/home/t23203");
         Path saveDataPath = Paths.get(userHome, "EyeImages");
         if (!Files.exists(saveDataPath)) {
             Files.createDirectories(saveDataPath);

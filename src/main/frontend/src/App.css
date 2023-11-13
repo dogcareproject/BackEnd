@@ -10,6 +10,8 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
 
+  font-size: 2em;
+
   color: black;
 }
 
@@ -44,8 +46,16 @@ a {
   float: left;
 
   left: 200px;
-  margin-left: 80px;
+  margin-left: 150px;
   margin-top: 130px;
+}
+
+.Home h2 {
+  font-weight: bold;
+}
+
+.Home p {
+  font-size: 24px;
 }
 
 .MyHeader {
@@ -55,19 +65,24 @@ a {
 
   background-color: #ffbf00;
 
-  font-size: 15px;
+  font-size: 22px;
 }
 
 .logBtn {
   display: flex;
   float: right;
 
+  font-size: 16px;
+
   margin-right: 20px;
 }
 
 .logBtn button {
+  position: relative;
+  left: 1300px;
   top: 10px;
-  font-size: 12px;
+
+  font-size: 15px;
   border: none;
   border-radius: 2px;
   background: none;
@@ -81,13 +96,14 @@ a {
 }
 
 .navbar .navbarMenu {
+  font-family: 'Nanum Pen Script';
   margin-left: 50px;
-  font-size: 12px;
+  font-size: 28px;
 }
 
 .navbar button {
   font-family: 'Nanum Pen Script';
-  font-size: 20px;
+  font-size: 25px;
   position: relative;
   top: -80px;
   cursor: pointer;
@@ -97,12 +113,17 @@ a {
   position: relative;
   left: 43%;
   /* justify-content: center; */
-  top: 100px;
+  top: 150px;
   font-family: 'Nanum Pen Script';
   min-height: 100vh;
   margin: 0px auto;
 
   color: black;
+}
+
+.Login h2 {
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .Login input {
@@ -111,6 +132,7 @@ a {
   margin-bottom: 10px;
   background: none;
   text-decoration: solid;
+  font-size: 30px;
 }
 
 .Login input::placeholder {
@@ -118,14 +140,13 @@ a {
 }
 
 .Login button {
-  margin-left: 120px;
+  margin-left: 130px;
 
   cursor: pointer;
   border: none;
   border-radius: 3px;
-  background-color: antiquewhite;
-  padding: 4px;
-  box-shadow: 1px 1px 3px rgb(139, 102, 102);
+  background: none;
+  font-size: 30px;
 }
 
 .demo-loadmore-list {
@@ -138,11 +159,17 @@ a {
   border-bottom: 1px solid black;
   background: none;
 
-  width: 60px;
+  font-size: 15px;
+
+  width: 120px;
 }
 
 #btn12 {
   border: none;
+}
+
+.demo-loadmore-list {
+  font-size: 15px;
 }
 
 .demo-loadmore-list button {
@@ -162,17 +189,27 @@ a {
   margin: 0 auto;
 }
 
+.InquiryList h2 {
+  margin-top: 50px;
+  position: relative;
+  font-weight: bold;
+  left: 10%;
+}
+
 .search-input {
   position: relative;
   left: 70%;
 
+  margin-top: 50px;
   margin-bottom: 10px;
 }
 
 .search-input input {
   margin-right: 8px;
 
-  width: 130px;
+  font-size: 20px;
+
+  width: 195px;
   border: none;
   border-bottom: solid 1px black;
 }
@@ -184,6 +221,8 @@ a {
   background: none;
   box-shadow: 0.5px 0.5px 0.5px #ccac4c;
 
+  font-size: 20px;
+
   padding: 3px;
 }
 
@@ -194,12 +233,17 @@ a {
   margin: 0 auto;
 }
 
-.Inquiry h3 {
-  text-align: center;
+.InquiryList div {
+  font-size: 24px;
+}
+
+.Inquiry span {
+  font-size: 18px;
 }
 
 .Inquiry p {
   height: 320px;
+  font-size: 18px;
 }
 
 .Inquiry span:last-child {
@@ -223,13 +267,18 @@ a {
 }
 
 .InquiryAnswer textarea {
-  width: 400px;
+  border: none;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  width: 350px;
   /* border: none; */
 
-  height: 250px;
+  height: 300px;
   width: 60%;
 
-  left: 220px;
+  margin-top: 20px;
+
+  left: 20%;
   position: relative;
 }
 
@@ -237,9 +286,48 @@ a {
   cursor: pointer;
   margin-top: 40px;
 
+  font-size: 24px;
+
   position: relative;
   right: -73%;
 
   border: none;
   background: none;
+}
+
+.UserList img {
+  position: relative;
+  left: 20%;
+}
+
+.UserList h2 {
+  margin-top: 50px;
+  position: relative;
+  font-weight: bold;
+  left: 10%;
+}
+
+.UserList div {
+  font-size: 24px;
+}
+
+.descripition {
+  margin-bottom: 30px;
+
+  position: relative;
+  left: 10%;
+}
+
+.dropdown {
+  top: 10px;
+  left: 30px;
+
+  margin-bottom: 20px;
+}
+
+.Graph h2 {
+  margin-top: 50px;
+  position: relative;
+  font-weight: bold;
+  left: 10%;
 }

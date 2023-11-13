@@ -26,5 +26,8 @@ public class AdminController {
     public List<Walk> getAllWalk() throws Exception{
         return petService.getAllWalk();
     }
-
+    @DeleteMapping(value="/walks")
+    public Boolean deleteWalk(@RequestParam Long walkId) {
+        return petService.deleteWalk(walkId);
+    }
 }

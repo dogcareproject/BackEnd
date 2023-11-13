@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Pagination } from 'antd';
+import { List, Skeleton, Pagination } from 'antd';
 import axios from "axios";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const count = 5; // 한 페이지에 표시할 항목 수
 
@@ -9,7 +9,6 @@ const App = () => {
   const navigation = useNavigate();
 
   const [initLoading, setInitLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [list, setList] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -42,6 +41,7 @@ const App = () => {
         console.error(error);
         console.log(id);
       })
+    // navigation('/userList');
   }
 
   const onUserDeleteHandler = (id) => {
@@ -56,13 +56,13 @@ const App = () => {
         .then(response => {
           if (response.status === 200) {
             console.log(response.status);
-            navigation('/');
           }
         })
         .catch(error => {
           console.error(error);
         });
     }
+    navigation('/userList');
   }
 
   useEffect(() => {
@@ -100,7 +100,13 @@ const App = () => {
   const displayList = searchResult.length > 0 ? searchResult.slice(startIndex, endIndex) : list.slice(startIndex, endIndex);
 
   return (
-    <div>
+    <div className='UserList'>
+      <div>
+        <h2>사용자 관리</h2>
+        <div className='descripition'>
+          사용자 정지와 강제 탈퇴 기능으로 사용자를 관리할 수 있습니다.
+        </div>
+      </div>
       <div className='search-input'>
         <input
           type="text"
@@ -117,23 +123,27 @@ const App = () => {
         dataSource={displayList}
         renderItem={(item) => (
           <List.Item
+            style={{ fontSize: "18px" }}
             actions={[
               <div>
                 <div>
                   <input id="input12" type="text" placeholder="정지 일수" onChange={dayCountChange} />
                   <span>&nbsp;&nbsp;</span>
-                  <button onClick={() => onUserBanHandler(item.id)}><i class="bi bi-x-circle"></i>&nbsp;&nbsp;회원 정지</button>&nbsp; |
+                  <button style={{fontSize: "20px"}} onClick={() => onUserBanHandler(item.id)}><i class="bi bi-x-circle"></i>&nbsp;&nbsp;회원 정지</button>&nbsp; |
                   <span>&nbsp;&nbsp;</span>
-                  <button onClick={() => onUserDeleteHandler(item.id)}><i class="bi bi-trash"></i>&nbsp;&nbsp;회원 강제 탈퇴</button>
+                  <button style={{fontSize: "20px"}} onClick={() => onUserDeleteHandler(item.id)}><i class="bi bi-trash"></i>&nbsp;&nbsp;회원 강제 탈퇴</button>
                 </div>
               </div>
             ]}
           >
-            <Skeleton avatar title={false} loading={item.loading} active>
+            <Skeleton
+              avatar title={false}
+              loading={item.loading}
+              active>
               <List.Item.Meta
+                className=''
                 title={<a href="https://ant.design">{item.name?.last}</a>}
-                description={`아이디: ${item.account}, 이메일: ${item.email}`}
-              />
+                description={<span style={{ fontWeight: 'bold', fontSize: "22px" }}>아이디: {item.account}, 이메일: {item.email}</span>} />
             </Skeleton>
           </List.Item>
         )}

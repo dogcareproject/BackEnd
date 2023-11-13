@@ -20,10 +20,30 @@ const Nav = () => {
 
   return <div className="navbar">
     <div>
-      <Link className="navbarMenu" to={'/userList'}><b>사용자 목록</b></Link>
-      <Link className="navbarMenu" to={'/GraphPage'}><b>데이터 관리</b></Link>
-      <Link className="navbarMenu" to={'/aiModel'}><b>AI Model</b></Link>
-      <Link className='navbarMenu' to={'/inquiryList'}><b>문의 관리</b></Link>
+      <Link
+        className="navbarMenu"
+        to={isLoggedIn ? '/userList' : '/login'}
+      >
+        <b>사용자 목록</b>
+      </Link>
+      <Link
+        className="navbarMenu"
+        to={isLoggedIn ? '/graph' : '/login'}
+      >
+        <b>데이터 관리</b>
+      </Link>
+      <Link
+        className="navbarMenu"
+        to={isLoggedIn ? '/aiModel' : '/login'}
+      >
+        <b>AI MODEL</b>
+      </Link>
+      <Link
+        className="navbarMenu"
+        to={isLoggedIn ? '/inquiryList' : '/login'}
+      >
+        <b>문의 관리</b>
+      </Link>
       <div className="logBtn">
         {isLoggedIn ? (
           <button onClick={handleLogout}>로그아웃</button>
