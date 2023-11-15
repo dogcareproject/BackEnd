@@ -120,6 +120,14 @@ public class MemberService {
 
         return true;
     }
+    public boolean pwdChange(UserRequest request){
+        Member member = memberRepository.findById(request.getId()).orElseThrow(() ->
+                new SignException("해당 계정을 찾을 수 없습니다."));
+        member.setPassword(passwordEncoder.encode(request.getPassword()));
+        memberRepository.save(member);
+
+        return true;
+    }
     public String FindAccount(UserRequest request){
         Member member = memberRepository.findByEmail(request.getEmail()).orElseThrow(() ->
                 new SignException("이메일을 찾을수 없습니다"));
