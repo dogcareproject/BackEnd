@@ -85,13 +85,13 @@ public class PetController {
 
 
     @PostMapping(value = "/checkSkin")
-    public ResponseEntity<checkResponse> checkskin(@RequestPart MultipartFile image) throws Exception {
-        return new ResponseEntity<>(petService.checkSkin(image), HttpStatus.OK);
+    public ResponseEntity<checkResponse> checkskin(@RequestPart MultipartFile image,@RequestParam Long petId) throws Exception {
+        return new ResponseEntity<>(petService.checkSkin(image,petId), HttpStatus.OK);
     }//image:xxx.jpg 꼴로 받음.
 
     @PostMapping(value = "/checkEyes")
-    public ResponseEntity<checkResponse> checkeyes(@RequestPart MultipartFile image) throws Exception {
-        return new ResponseEntity<>(petService.checkEyes(image), HttpStatus.OK);
+    public ResponseEntity<checkResponse> checkeyes(@RequestPart MultipartFile image,@RequestParam Long petId) throws Exception {
+        return new ResponseEntity<>(petService.checkEyes(image, petId), HttpStatus.OK);
     }//image:xxx.jpg 꼴로 받음.
 
 

@@ -43,3 +43,4 @@ jwt:
 
 server:
   port: 60003
+

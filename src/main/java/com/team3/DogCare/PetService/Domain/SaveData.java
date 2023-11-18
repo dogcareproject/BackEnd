@@ -22,9 +22,6 @@ public class SaveData {
     private String Url; //image
 
     @Column
-    private String filename;
-
-    @Column
     private String Breed;
 
     @Column
@@ -34,7 +31,7 @@ public class SaveData {
     private String Age;
 
     @Column
-    private String Disease_name;
+    private int DiseaseCode;
 
     @Column
     private String Identifier;

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -24,6 +25,7 @@ public class MemberController {
     private final MemberService memberService;
     @Autowired
     private final EmailService emailService;
+    private final String logFilePath = "/home/t23203/BackUpLog/backup.log";
 
 
 
@@ -161,6 +163,23 @@ public class MemberController {
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
         } //받는 인자 : Long memberid, String content, String title, LocalDate createTime
+    }
+
+    @PostMapping("/admin/BackUp")
+    public ResponseEntity<?> DBBackUp(){
+        memberService.backupDatabase();
+        return new ResponseEntity<>("백업되었습니다.", HttpStatus.OK);
+    }
+
+    @GetMapping("/admin/DBLog")
+    public ResponseEntity<List<String>> getLogs() {
+        try {
+            List<String> logLines = memberService.readLogFileContent();
+            return ResponseEntity.ok(logLines);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
 

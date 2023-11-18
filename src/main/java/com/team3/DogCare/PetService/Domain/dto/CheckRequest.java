@@ -8,17 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Setter
 public class CheckRequest {
 
-
-
-    private String gender;
-
-    private String breed;
-
-    private String age;
-
-    private Double weight;
-
-    private String identifier;
-
+    private Long petId;
 
 }
