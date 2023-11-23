@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -32,6 +33,11 @@ public class Walk {
 
     @Column
     private Double walkTime;
+
+    @Column
+    private String endTime;
+
+
 
 
 }

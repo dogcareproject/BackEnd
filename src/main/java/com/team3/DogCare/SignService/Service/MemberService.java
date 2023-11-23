@@ -32,10 +32,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
+import java.util.logging.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -246,28 +243,21 @@ public class MemberService {
     @Scheduled(cron = "0 0 0/6 * * *")
     public void backupDatabase() {
         try {
+            setupLogger();  // 이 부분을 백업 작업 전에 한 번만 호출
 
-            setupLogger();
-
-            // 현재 날짜 및 시간을 이용하여 백업 파일 이름 생성
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
             String backupFileName = "backup_" + dateFormat.format(new Date()) + ".sql";
             String username = "dbid232";
             String password = "dbpass232";
             String databaseName = "db23203";
-
             String userHome = System.getProperty("user.home");
 
-            // mysqldump 명령어 생성
             String executeCmd = "mysqldump -u" + username + " -p" + password +
                     " " + databaseName + " > " + userHome + "/BackUp/" + backupFileName;
-            // 프로세스 빌더 생성
-            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", executeCmd);
 
-            // 백업 실행
+            ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", executeCmd);
             Process process = processBuilder.start();
 
-            // 프로세스 완료까지 대기
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {
@@ -287,9 +277,32 @@ public class MemberService {
 
     private void setupLogger() {
         try {
-            FileHandler fileHandler = new FileHandler("/home/t23203/BackUpLog/backup.log", 0, 1, true);
-            fileHandler.setFormatter(new SimpleFormatter());
-            logger.addHandler(fileHandler);
+            // 이미 핸들러가 추가되어 있는지 확인
+            boolean handlerExists = false;
+            for (Handler handler : logger.getHandlers()) {
+                if (handler instanceof FileHandler) {
+                    handlerExists = true;
+                    break;
+                }
+            }
+
+            // 핸들러가 추가되어 있지 않다면 새로운 핸들러 추가
+            if (!handlerExists) {
+                FileHandler fileHandler = new FileHandler("/home/t23203/BackUpLog/backup.log", 0, 1, true);
+                SimpleFormatter formatter = new SimpleFormatter() {
+                    @Override
+                    public synchronized String format(LogRecord lr) {
+                        // 날짜 포맷 변경
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        String formattedDate = dateFormat.format(new Date(lr.getMillis()));
+
+                        // [yyyy-MM-dd HH:mm:ss] 형식으로 로그 메시지 포맷팅
+                        return String.format("[%s] %s%n", formattedDate, lr.getMessage());
+                    }
+                };
+                fileHandler.setFormatter(formatter);
+                logger.addHandler(fileHandler);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
