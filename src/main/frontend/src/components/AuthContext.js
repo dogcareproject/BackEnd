@@ -4,17 +4,14 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // Use localStorage or any other method to get the initial login state
     const storedValue = localStorage.getItem('isLoggedIn');
     return storedValue === 'false';
   });
 
   useEffect(() => {
-    // Your existing code for localStorage check
-    const storedValue = localStorage.getItem('isLoggedIn');
-
-    if (storedValue === 'true') {
-      setIsLoggedIn(true);
+    if (isLoggedIn === null) {
+      const storedValue = localStorage.getItem('isLoggedIn');
+      setIsLoggedIn(storedValue === 'false');
     }
   }, []);
 

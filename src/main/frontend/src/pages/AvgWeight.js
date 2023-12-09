@@ -30,22 +30,17 @@ const AvgWeight = () => {
       return;
     }
 
+    // 각 견종에 대한 최대 체중, 최소 체중, 평균 체중 계산
     const categories = avgWeightData.map(entry => entry[0]);
     const maxWeights = avgWeightData.map(entry => entry[1]);
-    const avgWeights = avgWeightData.map(entry => entry[2]);
     const minWeights = avgWeightData.map(entry => entry[3]);
+    const avgWeights = avgWeightData.map(entry => entry[2]);
 
-    const colors = [
-      Highcharts.getOptions().colors[0],
-      Highcharts.getOptions().colors[1],
-      Highcharts.getOptions().colors[2],
-    ];
-
+    // 차트 생성
     Highcharts.chart('container', {
       chart: {
         type: 'column'
       },
-      colors,
       title: {
         text: '체중 통계 차트'
       },
@@ -74,17 +69,14 @@ const AvgWeight = () => {
         {
           name: '최대 체중',
           data: maxWeights,
-          color: colors[0],
         },
         {
           name: '평균 체중',
-          data: avgWeights,
-          color: colors[1],
+          data: avgWeights.map(weight => parseFloat(weight.toFixed(2))),
         },
         {
           name: '최소 체중',
           data: minWeights,
-          color: colors[2],
         },
       ],
     });
@@ -92,9 +84,15 @@ const AvgWeight = () => {
 
   return (
     <div>
+      <div className='Graph'>
+        <h2>반려견의 체중 및 산책 관련 데이터</h2>
+        <div className='description' style={{ position: "relative", left: "10%" }}>
+          반려견의 체중 및 산책 관련 데이터를 확인할 수 있습니다.
+        </div>
+      </div>
       <div className="dropdown">
         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          드롭다운 버튼
+          데이터 그래프
         </button>
         <ul className="dropdown-menu">
           <li><Link to={'/AvgWeight'}>체중 데이터 관리</Link></li>

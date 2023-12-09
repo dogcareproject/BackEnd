@@ -60,7 +60,7 @@ const AvgWeight = () => {
             text: '평균 산책 시간',
           },
           labels: {
-            format: '{value} 분',
+            format: '{value:.2f} 분',
           },
         },
         {
@@ -68,7 +68,7 @@ const AvgWeight = () => {
             text: '평균 산책 거리',
           },
           labels: {
-            format: '{value} km',
+            format: '{value:.2f} km',
           },
           opposite: true,
         },
@@ -91,7 +91,7 @@ const AvgWeight = () => {
           name: '평균 산책 시간',
           data: avgWalkData.map(entry => ({
             name: entry.breed,
-            y: entry.averageWalkTime,
+            y: parseFloat(entry.averageWalkTime.toFixed(2)), // 평균 산책 시간 소수점 둘째 자리까지 표시
             color: colors[0],
           })),
         },
@@ -99,7 +99,7 @@ const AvgWeight = () => {
           name: '평균 산책 거리',
           data: avgWalkData.map(entry => ({
             name: entry.breed,
-            y: entry.averageWalkDistance,
+            y: parseFloat(entry.averageWalkDistance.toFixed(2)), // 평균 산책 거리 소수점 둘째 자리까지 표시
             color: colors[1],
           })),
           yAxis: 1,
@@ -110,9 +110,15 @@ const AvgWeight = () => {
 
   return (
     <div>
+      <div className='Graph'>
+        <h2>반려견의 체중 및 산책 관련 데이터</h2>
+        <div className='description' style={{ position: "relative", left: "10%" }}>
+          반려견의 체중 및 산책 관련 데이터를 확인할 수 있습니다.
+        </div>
+      </div>
       <div className="dropdown">
         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          드롭다운 버튼
+          데이터 그래프
         </button>
         <ul className="dropdown-menu">
           <li><Link to={'/AvgWeight'}>체중 데이터 관리</Link></li>

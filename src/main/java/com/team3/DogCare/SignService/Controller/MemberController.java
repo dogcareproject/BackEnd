@@ -115,7 +115,7 @@ public class MemberController {
         }//받는 인자 : id / id를 입력받아 계정 삭제
 
     }
-    @PostMapping("/admin/banMember")
+    /*@PostMapping("/admin/banMember")
     public ResponseEntity<?> memberban(@RequestBody BanDto request){
         try{
             return new ResponseEntity<>(memberService.accountBan(request), HttpStatus.OK);
@@ -123,7 +123,7 @@ public class MemberController {
             String errorMessage = e.getMessage();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMessage);
         } //받는 인자 : id , bantime
-    }
+    }*/
     @GetMapping("/getMemberList")
     public ResponseEntity<List<Member>> getMembers() {
         return new ResponseEntity<>(memberService.getMemberList(), HttpStatus.OK);

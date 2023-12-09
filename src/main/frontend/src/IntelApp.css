@@ -10,6 +10,8 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
 
+  font-size: 2em;
+
   color: black;
 }
 
@@ -44,8 +46,16 @@ a {
   float: left;
 
   left: 200px;
-  margin-left: 80px;
+  margin-left: 150px;
   margin-top: 130px;
+}
+
+.Home h2 {
+  font-weight: bold;
+}
+
+.Home p {
+  font-size: 24px;
 }
 
 /* ---------------------------------- */
@@ -126,7 +136,7 @@ body {
 
 .logBtn button {
   top: 10px;
-  font-size: 18px;
+  font-size: 22px;
   border: none;
   border-radius: 2px;
   background: none;
@@ -140,13 +150,14 @@ body {
 }
 
 .navbar .navbarMenu {
+  font-family: 'Nanum Pen Script';
   margin-left: 50px;
-  float: left;
+  font-size: 28px;
 }
 
 .navbar button {
   font-family: 'Nanum Pen Script';
-  font-size: 20px;
+  font-size: 25px;
   position: relative;
   top: -80px;
   cursor: pointer;
@@ -156,12 +167,17 @@ body {
   position: relative;
   left: 43%;
   /* justify-content: center; */
-  top: 100px;
+  top: 150px;
   font-family: 'Nanum Pen Script';
   min-height: 100vh;
   margin: 0px auto;
 
   color: black;
+}
+
+.Login h2 {
+  font-size: 36px;
+  font-weight: bold;
 }
 
 .Login input {
@@ -170,6 +186,7 @@ body {
   margin-bottom: 10px;
   background: none;
   text-decoration: solid;
+  font-size: 30px;
 }
 
 .Login input::placeholder {
@@ -177,12 +194,13 @@ body {
 }
 
 .Login button {
-  margin-left: 120px;
+  margin-left: 130px;
 
   cursor: pointer;
   border: none;
   border-radius: 3px;
   background: none;
+  font-size: 30px;
 }
 
 .demo-loadmore-list {
@@ -195,11 +213,17 @@ body {
   border-bottom: 1px solid black;
   background: none;
 
-  width: 60px;
+  font-size: 15px;
+
+  width: 120px;
 }
 
 #btn12 {
   border: none;
+}
+
+.demo-loadmore-list {
+  font-size: 15px;
 }
 
 .demo-loadmore-list button {
@@ -219,6 +243,13 @@ body {
   margin: 0 auto;
 }
 
+.InquiryList h2 {
+  margin-top: 50px;
+  position: relative;
+  font-weight: bold;
+  left: 10%;
+}
+
 .search-input {
   position: relative;
   left: 70%;
@@ -230,7 +261,9 @@ body {
 .search-input input {
   margin-right: 8px;
 
-  width: 130px;
+  font-size: 20px;
+
+  width: 195px;
   border: none;
   border-bottom: solid 1px black;
 }
@@ -242,6 +275,8 @@ body {
   background: none;
   box-shadow: 0.5px 0.5px 0.5px #ccac4c;
 
+  font-size: 20px;
+
   padding: 3px;
 }
 
@@ -252,12 +287,17 @@ body {
   margin: 0 auto;
 }
 
-.Inquiry h3 {
-  text-align: center;
+.InquiryList div {
+  font-size: 24px;
+}
+
+.Inquiry span {
+  font-size: 18px;
 }
 
 .Inquiry p {
   height: 320px;
+  font-size: 18px;
 }
 
 .Inquiry span:last-child {
@@ -281,19 +321,26 @@ body {
 }
 
 .InquiryAnswer textarea {
-  width: 400px;
+  border: none;
+  border-top: solid 1px black;
+  border-bottom: solid 1px black;
+  width: 350px;
   /* border: none; */
 
-  height: 250px;
+  height: 300px;
   width: 60%;
 
-  left: 220px;
+  margin-top: 20px;
+
+  left: 20%;
   position: relative;
 }
 
 .InquiryAnswer button {
   cursor: pointer;
   margin-top: 40px;
+
+  font-size: 24px;
 
   position: relative;
   right: -73%;
@@ -310,7 +357,12 @@ body {
 .UserList h2 {
   margin-top: 50px;
   position: relative;
+  font-weight: bold;
   left: 10%;
+}
+
+.UserList div {
+  font-size: 24px;
 }
 
 .descripition {
@@ -336,7 +388,6 @@ body {
 
 .Footer {
   padding-top: 20px;
-  /* border-top: solid 1px #ffbf00; */
   background-color: #ffbf00;
 }
 
@@ -349,7 +400,6 @@ body {
 }
 
 /* ----------------------------------------------- */
-
 /* 스타일 추가 */
 .user-card {
   font-family: 'Nanum Pen Script';
@@ -368,7 +418,7 @@ body {
   max-height: 60%;
   overflow-y: auto;
 
-  top: -10%;
+  top: 2%;
   left: 35%;
   transform: translate(3%, 3%);
   background-color: white;
@@ -446,7 +496,6 @@ ol.large-numbers li:hover:before {
 }
 
 /* ----------------------------------------------------- */
-
 article,
 aside,
 figure,
@@ -461,7 +510,7 @@ section {
 nav {
   display: block;
   font-family: 'Nanum Pen Script';
-  font-size: 22px;
+  font-size: 32px;
 
   background: #ffbf00;
 }
@@ -482,7 +531,7 @@ nav {
 
 .menu li a {
   font-weight: 600;
-  font-size: 22px;
+  font-size: 32px;
   text-decoration: none;
   padding: 20px 15px;
   display: block;
@@ -690,8 +739,7 @@ a.homer {
 @media (max-width: 320px) {
 }
 
-/* ------------------------------------------------ */
-
+/* ------------------------------------------- */
 .Home button {
   background: #ffbf00;
   color: #fff;
@@ -731,7 +779,7 @@ a.homer {
   transition: 800ms ease all;
 }
 
-/* -------------------------------------------- */
+/* ----------------------------------------------------- */
 
 /* ------------------------------------------------------------------- */
 
@@ -747,8 +795,12 @@ a.homer {
   background: none;
 
   position: relative;
-  right: -80%;
+  right: -75%;
   top: 40px;
+}
+
+.container table {
+  margin-right: 100px;
 }
 
 .table {
@@ -897,4 +949,11 @@ table.dataTable {
 .user-info:hover {
   background-color: #f0f0f0; /* Change this to the background color you want on hover */
   transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.AI-description > h2 {
+  margin-top: 50px;
+  position: relative;
+  font-weight: bold;
+  left: 10%;
 }

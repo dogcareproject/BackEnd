@@ -44,6 +44,12 @@ const InquiryList = () => {
 
   return (
     <div>
+      <div className='Graph'>
+        <h2>사용자 문의</h2>
+        <div className='descripition'>
+          사용자들의 문의 내용을 확인할 수 있습니다.
+        </div>
+      </div>
       <div className='search-input'>
         <input
           type="text"
@@ -71,8 +77,8 @@ const InquiryList = () => {
             ]}
           >
             <List.Item.Meta
-              title={<a style={{ fontWeight: 'bold', fontSize: "23px" }} onClick={() => navigation(`/inquiryDetail/${item.inquiryId}`)}>{item.title}</a>}
-              description={<span style={{ fontWeight: 'bold', fontSize: "20px" }}>{item.content}</span>}
+              title={<a style={{ fontSize: "18px" }} onClick={() => navigation(`/inquiryDetail/${item.inquiryId}`)}>{item.title}</a>}
+              description={<span style={{ fontWeight: 'bold', fontSize: "16px" }}>{item.content}</span>}
             />
           </List.Item>
         )}

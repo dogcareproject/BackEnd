@@ -241,7 +241,7 @@ public class PetService {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String currentDatetime = LocalDateTime.now().format(formatter);
-        String log = String.format("[%s] 예측한 피부질환 클래스: %d, AI진단 신뢰도: %.2f%% , 견종 : ", currentDatetime, predicted_class, confidence, pet.getBreed());
+        String log = String.format("[%s] 예측한 피부질환 클래스: %d AI진단 신뢰도: %.2f%% 견종 : " + pet.getBreed(), currentDatetime, predicted_class, confidence);
         String logFilePath = "/home/t23203/AILogs/skin_prediction_logs.log";
         try (FileWriter writer = new FileWriter(logFilePath, true)) {
             writer.write(log + "\n");
@@ -262,38 +262,38 @@ public class PetService {
         } else {
 
             if (code == 1 ){
-                Disease = String.format("구진 혹은 플라크로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("구진 혹은 플라크로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "구진이란 염증성 여드름 병변과 비염증성 여드름 병변의 중간 " +
                         "형태이며 피부의 단단한 덩어리로 직경이 0.5cm~1cm를 구진, 그 이상을 플라크라 합니다." +
                         "작고 딱딱한 붉은 색의 병변으로 안에 고름은 잡히지 않은 상태로 나타납니다.";
 
             }else if(code == 2){
-                Disease = String.format("비듬,각질 혹은 상피성잔고리로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("비듬,각질 혹은 상피성잔고리로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "비듬, 각질은 정상적인 피부활동으로 생기는 피부 막이 떨어져 나가는 현상입니다."+
                         "상피성잔고리는 농포나 수포가 파열한 후 나타나는 원형의 비듬입니다." +
                         "피부병의 증상일 수 있으나, 주변 환경이나 스트레스에 의해 발생하기도 합니다.";
 
             }else if(code == 3){
-                Disease = String.format("과다색소침착 혹은 태선화로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("과다색소침착 혹은 태선화로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "과다색소침착은 강아지의 피부나 모발에서 색소의 과다 침전을 나타내며, " +
                         "이로 인해 해당 부위가 어두워지거나 색이 짙어질 수 있습니다." +
                         "태선화는 피부가 두꺼워지고 단단하며, 거칠게 변합니다. 지속적인 자극이나 피부병으로 인해 발생할 수 있습니다.";
             }else if(code == 4){
-                Disease = String.format("농포 혹은 여드름으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("농포 혹은 여드름으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "농포와 여드름 모두 피부에 생긴 작고 뾰족한 형태의 발진입니다."+
                         "여드름의 경우 피지선의 과도한 분비나 기름진 털에 의해 발생할 수 있습니다."+
                         "농포의 경우 염증 반응이 있거나 피부에 세균 감염이 있을 경우 발생할 수 있습니다.";
             }else if(code ==5){
-                Disease = String.format("미란 혹은 궤양으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("미란 혹은 궤양으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "상처로 인해 표피가 떨어져 나가는 경우, 이 범위가 작고 표피에 한정되는 것을 미란이라 합니다."+
                         "하지만 그 상처가 깊어 표피 이하까지 범위가 미치고, 탈락이 발생하는 경우 궤양이라 하고 흉터가 동반됩니다.";
 
             }else if(code == 6){
-                Disease = String.format("결절 혹은 종괴로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("결절 혹은 종괴로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "결절과 종괴 모두 피부에서 생기는 혹을 말합니다. 이때 그 크기가 크면 종괴로, 작으면 결절이라 합니다."+
                         "둘 모두 외부 상처나 감염으로 인한 염증반응으로 나타날 수 있습니다.";
             }else if(code == 7 ){
-                Disease = String.format("감염성피부염으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("감염성피부염으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "피부에 발생하는 감염을 동반한 피부염을 나타냅니다. 이러한 감염은 피부에 있는 세균, 바이러스, 진드기 또는 기타 병원체에 의해 유발됩니다. " +
                         "강아지 피부염은 다양한 형태와 원인을 가질 수 있으며, 일반적으로 감염성 피부염은 " +
                         "피부의 염증 반응을 동반하고 피부 장애를 유발하는 감염에 의해 발생합니다.";
@@ -384,7 +384,7 @@ public class PetService {
         //수정한 내용
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String currentDatetime = LocalDateTime.now().format(formatter);
-        String log = String.format("[%s] 예측한 안구질환 클래스: %d AI진단 신뢰도: %.2f%%, 견종 : ", currentDatetime, predicted_class, confidence, pet.getBreed());
+        String log = String.format("[%s] 예측한 안구질환 클래스: %d AI진단 신뢰도: %.2f%% 견종 : " + pet.getBreed(), currentDatetime, predicted_class, confidence);
         String logFilePath = "/home/t23203/AILogs/eye_prediction_logs.log";
         try (FileWriter writer = new FileWriter(logFilePath, true)) {
             writer.write(log + "\n");
@@ -403,49 +403,49 @@ public class PetService {
         } else {
 
             if (code == 1 ){
-                Disease = String.format("안검염으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("안검염으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "안검염이란 눈꺼풀의 피부와 속눈썹 부위 및 부속선에 염증이 생긴것을 말합니다." +
                         "눈 부속기관인 안검의 염증은 눈병의 하나로 분류되며," +
                         "결막염, 각막염 등과 함께 많이 발생하는 질병 중 하나입니다.";
 
             }else if(code == 2){
-                Disease = String.format("안검종양으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("안검종양으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "안검종양은 개의 눈 주위에 발생하는 종양을 가리키는 용어입니다. " +
                         "안검종양은 다양한 형태와 크기로 나타날 수 있습니다."+
                         "대부분 검판선의 분비선에서 유래하게 되는데 크기가 커지면 " +
                         "안구를 압박하거나 결막이나 각막을 만성적으로 자극하여 염증을 유발할 수 있습니다.";
             }else if(code == 3){
-                Disease = String.format("안검내반증으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("안검내반증으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "개의 눈꺼풀 가장자리가 눈으로 말려 들어가 피모가 항상 닿아 있어 이로 인해 눈물 흘림과 눈 비빔, " +
                         "깜박임 등 다양한 형태의 증상이 나타나는 것을 말합니다.";
             }else if(code == 4){
-                Disease = String.format("유루증으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("유루증으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "눈 주변의 털이 지속적으로 축축해지고 붉은색으로 변하는 현상을 유루증이라고 합니다. " +
                         "강아지의 눈물에는 털을 붉은색으로 변화시키는 색소가 포함되어 있어 말티즈나 푸들처럼 하얀 털을 " +
                         "갖고 있는 강아지의 경우, 눈 주위의 털이 붉게 변하게 됩니다.";
             }else if(code ==5){
-                Disease = String.format("색소침착성 각막염으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("색소침착성 각막염으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "색소침착성 각막염은 각막에 색소침착이 발생하는 안구 질환입니다.."+
                         "색소침착성 각막염은 초기에 적절한 치료로 관리되면 진전을 늦출 수 있으므로, " +
                         "증상이 나타나면 반드시 수의사와 상담하고 치료 방법을 검토해야 합니다. ";
 
             }else if(code == 6){
-                Disease = String.format("궤양성 각막염으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("궤양성 각막염으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "강아지의 각막에 발생하는 괴사 또는 궤양으로 나타나는 안구 질환을 가리킵니다."+
                         "궤양성 각막질환은 즉시 수의사의 치료가 필요합니다. 치료는 각막에 약물을 바르거나 " +
                         "안약을 투여하여 염증 및 감염을 관리하고, " +
                         "상처를 치료하기 위한 안과 수술을 포함할 수 있습니다.";
             }else if(code == 7 ){
-                Disease = String.format("핵경화로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("핵경화로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "핵경화는 눈의 수정체와 연관된 눈의 변화를 가리키는 용어입니다. " +
                         "이 상태는 노화에 따른 정상적인 변화로 간주되며, 일반적으로 고령의 강아지에서 나타납니다."+
                         "핵경화는 비교적 무해한 눈의 변화로 간주되며, 주로 노화와 연관이 있습니다.";
             }else if(code == 8 ){
-                Disease = String.format("비궤양성 각막염으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("비궤양성 각막염으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "비궤양성 각막질환은 강아지의 눈 각막(cornea)에 발생하는 감염이나 손상 없이 발생하는 각막 질환을 나타냅니다. " +
                         "비궤양성 각막질환은 각막에 염증 또는 상처 없이 각막 조직의 비정상적인 변화로 나타날 수 있습니다.";
             }else if(code == 9 ){
-                Disease = String.format("유리체 변성으로 의심됩니다. (AI진단 신뢰도: %.2f%%)", confidence);
+                Disease = String.format("유리체 변성으로 의심됩니다.\n (AI진단 신뢰도: %.2f%%)", confidence);
                 info = "눈의 유리체체(혹은 유리체체 중벽)에 변화가 일어나는 상태를 가리킵니다."+
                         "유리체 변성은 눈의 자연적인 노화 과정의 일부로 간주되며, " +
                         "대부분의 경우 심각한 문제가 아니라는 점을 감안할 필요가 있습니다." +

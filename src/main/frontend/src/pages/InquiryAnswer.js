@@ -16,12 +16,11 @@ const InquiryAnswer = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
+  console.log(content);
 
   const answerhandler = (e) => {
     setAnswer(e.currentTarget.value);
   }
-
-  const jsonData = JSON.stringify(data);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -71,10 +70,10 @@ const InquiryAnswer = () => {
     <form className="InquiryAnswer" onSubmit={inquiryAnswerHandelr}>
       <div>
         <div >
-          <h3>{account} - 답변</h3>
-          <textarea onChange={answerhandler}>{content}</textarea>
+          <h5>{account} - 답변</h5>
+          <textarea style={{ fontSize: "18px" }} onChange={answerhandler}></textarea>
         </div>
-        <button type="submit"><i class="bi bi-envelope-paper-fill"></i>&nbsp;&nbsp;답변 보내기</button>
+        <button style={{ fontSize: "20px" }} type="submit"><i class="bi bi-envelope-paper-fill"></i>&nbsp;&nbsp;답변 보내기</button>
       </div>
     </form>
   </div>
